@@ -139,6 +139,32 @@
 		color: #666;
 		font-style: italic;
 	}
+	/* Правило для всех изображений на сайте */
+	img {
+		max-width: 100%;
+		height: auto; /* Это предотвратит вытягивание */
+		object-fit: contain; /* Сохраняет пропорции внутри контейнера */
+	}
+
+	/* Специальное правило для вашего фото в блоке About */
+	.about-image {
+		width: 100%;
+		max-width: 350px; /* Ограничиваем размер на больших экранах */
+		height: auto;
+		display: block;
+		margin: 0 auto; /* Центрируем на мобильных */
+	}
+	@media (max-width: 600px) {
+    .about-section {
+        flex-direction: column; /* Картинка будет над текстом, а не сбоку */
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .hero h1 {
+        font-size: 1.8em; /* Уменьшаем заголовок, чтобы он не переносился криво */
+    }
+}
     </style>
 </head>
 <body>
