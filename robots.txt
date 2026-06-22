@@ -1,6 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /course/
-Disallow: /blog/
-# If the blog/course folders are just template leftovers, we hide them.
-# If you want to keep them, we can adjust this.
+Sitemap: https://tutorio.online/sitemap.xml
