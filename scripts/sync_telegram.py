@@ -35,9 +35,16 @@ CHANNEL_HANDLE = "tutorio_channel"
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = REPO_ROOT / "posts"
+IMAGES_DIR = REPO_ROOT / "assets" / "images" / "posts"
 BLOG_FILE = REPO_ROOT / "blog.html"
 SITEMAP_FILE = REPO_ROOT / "sitemap.xml"
 INDEX2_FILE = REPO_ROOT / "index2.html"
+
+# Regex to extract URLs from Telegram's `background-image:url('...')` style
+BG_IMG_RE = re.compile(r"background-image\s*:\s*url\(['\"]?([^'\")]+)['\"]?\)")
+
+# Telegram CDN host where post images live
+IMAGE_HOST = "cdn4.telesco.pe"
 
 # Skip non-content messages (channel created, pinned photo only, etc.)
 MIN_TEXT_LEN = 30
@@ -121,12 +128,20 @@ footer { text-align: center; padding: 40px 20px; color: #999; }
 .post-card { background: var(--white); padding: 25px; border-radius: 20px;
              box-shadow: 0 4px 15px rgba(0,0,0,0.05);
              border-bottom: 4px solid var(--primary-color); margin-bottom: 20px;
-             transition: 0.3s; }
+             transition: 0.3s; overflow: hidden; }
 .post-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.post-card .card-img-link { display: block; margin: -25px -25px 15px;
+                            overflow: hidden; border-radius: 20px 20px 0 0; }
+.post-card .card-img { display: block; width: 100%; height: 200px;
+                       object-fit: cover; transition: 0.4s; }
+.post-card:hover .card-img { transform: scale(1.04); }
 .post-card .meta { color: #888; font-size: 0.85em; text-transform: uppercase;
                    margin-bottom: 10px; letter-spacing: 0.5px; }
 .post-card .announce { color: #444; margin-bottom: 15px; line-height: 1.5; }
 .post-card .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.post-photos { margin: 0 0 25px; }
+.post-photos img { display: block; width: 100%; height: auto;
+                   border-radius: 18px; margin: 0 0 10px; }
 .btn-primary { display: inline-block; background: var(--accent-color); color: white;
                padding: 10px 22px; border-radius: 50px; text-decoration: none;
                font-weight: bold; font-size: 0.95em; transition: 0.3s; }
@@ -156,6 +171,12 @@ class Post:
     date_iso: str      # ISO 8601 from <time datetime="">
     date_human: str    # "DD.MM.YYYY HH:MM" (Moscow)
     url: str           # https://t.me/tutorio_channel/<id>
+    image_urls: list[str] = field(default_factory=list)  # all photos in post
+
+    @property
+    def image_url(self) -> str | None:
+        """First image URL or None."""
+        return self.image_urls[0] if self.image_urls else None
 
     @property
     def title(self) -> str:
@@ -214,7 +235,9 @@ def parse_posts(html: str) -> list[Post]:
             continue
 
         text_div = div.find("div", class_="tgme_widget_message_text")
-        time_tag = div.find("time")
+        # Telegram sometimes has multiple <time> tags (e.g. video duration + publish
+        # time). Only the publish-time <time> has a `datetime` attribute.
+        time_tag = div.find("time", attrs={"datetime": True})
         if not time_tag or not text_div:
             continue
 
@@ -237,6 +260,15 @@ def parse_posts(html: str) -> list[Post]:
         except Exception:
             date_human = date_iso
 
+        # Extract all photo URLs (single or grouped). Telegram stores them as
+        # `background-image:url('...')` on `<a class="tgme_widget_message_photo_wrap">`.
+        image_urls: list[str] = []
+        for a in div.find_all("a", class_="tgme_widget_message_photo_wrap"):
+            style = a.get("style", "")
+            m = BG_IMG_RE.search(style)
+            if m and m.group(1) not in image_urls:
+                image_urls.append(m.group(1))
+
         out.append(
             Post(
                 pid=pid,
@@ -245,11 +277,67 @@ def parse_posts(html: str) -> list[Post]:
                 date_iso=date_iso,
                 date_human=date_human,
                 url=f"https://t.me/{CHANNEL_HANDLE}/{pid}",
+                image_urls=image_urls,
             )
         )
 
-    # newest first; Telegram already serves newest first
+    # Sort strictly newest-first by date, then by pid as tie-breaker.
+    # Telegram serves newest first, but be defensive.
+    def _sort_key(p: Post) -> tuple[str, int]:
+        return (p.date_iso, int(p.pid))
+
+    out.sort(key=_sort_key, reverse=True)
     return out
+
+
+# ─── Image download ────────────────────────────────────────────────────────────
+
+
+def download_image(url: str, dest: Path) -> bool:
+    """Download a Telegram CDN image to disk. Returns True if newly written.
+
+    Skips if file already exists (idempotent). On failure, logs and returns False
+    so the script keeps going without the local copy (we fall back to the CDN URL).
+    """
+    if dest.exists() and dest.stat().st_size > 0:
+        return False
+
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+        ),
+        "Referer": "https://t.me/",
+    }
+    try:
+        r = requests.get(url, headers=headers, timeout=30, stream=True)
+        r.raise_for_status()
+        with dest.open("wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+        return True
+    except Exception as e:
+        print(f"[warn] failed to download {url}: {e}", file=sys.stderr)
+        if dest.exists():
+            try:
+                dest.unlink()
+            except OSError:
+                pass
+        return False
+
+
+def local_image_path(post: Post) -> Path:
+    """Local filesystem path for the post's first image (post-<pid>.jpg)."""
+    return IMAGES_DIR / f"post-{post.pid}.jpg"
+
+
+def web_image_path(post: Post, exists_locally: bool) -> str:
+    """Web URL to embed in HTML. Local path if downloaded, else CDN URL."""
+    if exists_locally:
+        return f"/assets/images/posts/post-{post.pid}.jpg"
+    return post.image_url or ""
 
 
 # ─── HTML helpers ────────────────────────────────────────────────────────────
@@ -276,9 +364,26 @@ def seo_head(post: Post) -> str:
     )
 
 
-def render_post_page(post: Post) -> str:
+def render_post_page(post: Post, local_exists: dict[str, bool]) -> str:
     canonical = f"{SITE_ORIGIN}/posts/post-{post.pid}.html"
     seo = seo_head(post)
+    # All photos for the post (carousel). If first image is local, use that path
+    # for all (we only download the first one to keep things simple).
+    photos_html = ""
+    if post.image_urls:
+        first_local = local_exists.get(post.pid, False)
+        if first_local:
+            src = f"/assets/images/posts/post-{post.pid}.jpg"
+            photos_html = (
+                f"<div class=\"post-photos\"><img src=\"{src}\" alt=\"{post.title}\" loading=\"lazy\"></div>"
+            )
+        else:
+            imgs = "".join(
+                f"<img src=\"{u}\" alt=\"{post.title}\" loading=\"lazy\">"
+                for u in post.image_urls
+            )
+            photos_html = f"<div class=\"post-photos\">{imgs}</div>"
+
     body = (
         f"<header><div class=\"container\">"
         f"<h1>{post.title}</h1>"
@@ -286,6 +391,7 @@ def render_post_page(post: Post) -> str:
         f"</div></header>"
         f"<article class=\"post-content\">"
         f"<div class=\"meta\">{post.date_human}</div>"
+        f"{photos_html}"
         f"<div class=\"body\">{post.html}</div>"
         f"<p style=\"margin-top: 30px;\">"
         f"<a href=\"{post.url}\" target=\"_blank\" class=\"bot-cta\">Открыть в Telegram &rarr;</a>"
@@ -295,7 +401,7 @@ def render_post_page(post: Post) -> str:
     return HEAD_COMMON.format(seo_head=seo, canonical=canonical, css=CSS) + body + BODY_TAIL
 
 
-def render_blog_page(posts: list[Post]) -> str:
+def render_blog_page(posts: list[Post], local_exists: dict[str, bool]) -> str:
     seo = (
         "<title>Блог Tutorio — публикации из Telegram</title>\n"
         "    <meta name=\"description\" content=\"Полезные материалы об английском: разборы фраз, идиом, грамматики и практические советы от преподавателя Tutorio.\">\n"
@@ -310,17 +416,8 @@ def render_blog_page(posts: list[Post]) -> str:
 
     cards: list[str] = []
     for p in posts:
-        announce = p.announce.replace("&", "&amp;").replace("<", "&lt;")
-        cards.append(
-            f"<div class=\"post-card\">"
-            f"<div class=\"meta\">{p.date_human}</div>"
-            f"<div class=\"announce\">{announce}</div>"
-            f"<div class=\"actions\">"
-            f"<a class=\"btn-primary\" href=\"/posts/post-{p.pid}.html\">Читать статью</a>"
-            f"<a class=\"btn-secondary\" href=\"{p.url}\" target=\"_blank\">Открыть в Telegram</a>"
-            f"</div>"
-            f"</div>"
-        )
+        cards.append(_render_card(p, local_exists, full_card=False))
+
     body = (
         "<header><div class=\"container\">"
         "<h1>Блог Tutorio</h1>"
@@ -334,10 +431,25 @@ def render_blog_page(posts: list[Post]) -> str:
     return HEAD_COMMON.format(seo_head=seo, canonical=canonical, css=CSS) + body + BODY_TAIL
 
 
-def render_post_card(p: Post) -> str:
+def _render_card(p: Post, local_exists: dict[str, bool], full_card: bool) -> str:
+    """Render a single post card. Used in blog.html and index2.html."""
     announce = p.announce.replace("&", "&amp;").replace("<", "&lt;")
+    img_html = ""
+    if p.image_url:
+        first_local = local_exists.get(p.pid, False)
+        src = (
+            f"/assets/images/posts/post-{p.pid}.jpg"
+            if first_local
+            else p.image_url
+        )
+        img_html = (
+            f"<a class=\"card-img-link\" href=\"/posts/post-{p.pid}.html\">"
+            f"<img class=\"card-img\" src=\"{src}\" alt=\"{p.title}\" loading=\"lazy\">"
+            f"</a>"
+        )
     return (
         f"<div class=\"post-card\">"
+        f"{img_html}"
         f"<div class=\"meta\">{p.date_human}</div>"
         f"<div class=\"announce\">{announce}</div>"
         f"<div class=\"actions\">"
@@ -348,9 +460,14 @@ def render_post_card(p: Post) -> str:
     )
 
 
-def update_index2(posts: list[Post]) -> bool:
+def render_post_card(p: Post, local_exists: dict[str, bool]) -> str:
+    return _render_card(p, local_exists, full_card=False)
+
+
+def update_index2(posts: list[Post], local_exists: dict[str, bool]) -> bool:
     """Replace content between <!-- BEGIN POSTS --> and <!-- END POSTS --> in index2.html.
 
+    Posts are expected to already be sorted newest-first. We render the top 3.
     Returns True if the file was modified.
     """
     if not INDEX2_FILE.exists():
@@ -369,7 +486,10 @@ def update_index2(posts: list[Post]) -> bool:
         return False
 
     latest = posts[:3]
-    inner = "\n".join(render_post_card(p) for p in latest)
+    if not latest:
+        print("[warn] no posts to inject", file=sys.stderr)
+        return False
+    inner = "\n".join(render_post_card(p, local_exists) for p in latest)
     all_link = (
         "\n<div class=\"all-posts-link\">"
         f"<a class=\"btn-secondary\" href=\"/blog.html\">Все публикации &rarr;</a>"
@@ -427,9 +547,9 @@ def update_sitemap(posts: list[Post]) -> bool:
 # ─── Main ────────────────────────────────────────────────────────────────────
 
 
-def write_post(post: Post) -> bool:
+def write_post(post: Post, local_exists: dict[str, bool]) -> bool:
     path = POSTS_DIR / f"post-{post.pid}.html"
-    content = render_post_page(post)
+    content = render_post_page(post, local_exists)
     if path.exists() and path.read_text(encoding="utf-8") == content:
         return False
     path.write_text(content, encoding="utf-8")
@@ -438,6 +558,7 @@ def write_post(post: Post) -> bool:
 
 def main() -> int:
     POSTS_DIR.mkdir(parents=True, exist_ok=True)
+    IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
     print(f"[fetch] {CHANNEL_URL}")
     try:
@@ -447,20 +568,37 @@ def main() -> int:
         return 1
 
     posts = parse_posts(html)
-    print(f"[parse] {len(posts)} posts kept")
+    print(f"[parse] {len(posts)} posts kept (newest first: {posts[0].pid if posts else 'n/a'})")
+
+    # Download first image per post (best-effort).
+    downloaded: list[str] = []
+    for p in posts:
+        if p.image_url:
+            dest = local_image_path(p)
+            if download_image(p.image_url, dest):
+                downloaded.append(dest.name)
+
+    # Build local-exists dict by re-checking disk after downloads.
+    local_exists: dict[str, bool] = {
+        p.pid: local_image_path(p).exists() for p in posts
+    }
+    print(
+        f"[images] downloaded={len(downloaded)} "
+        f"local_available={sum(local_exists.values())}/{len(posts)}"
+    )
 
     written_posts: list[str] = []
     for p in posts:
-        if write_post(p):
+        if write_post(p, local_exists):
             written_posts.append(p.pid)
 
-    blog_html = render_blog_page(posts)
+    blog_html = render_blog_page(posts, local_exists)
     blog_changed = False
     if not BLOG_FILE.exists() or BLOG_FILE.read_text(encoding="utf-8") != blog_html:
         BLOG_FILE.write_text(blog_html, encoding="utf-8")
         blog_changed = True
 
-    index2_changed = update_index2(posts)
+    index2_changed = update_index2(posts, local_exists)
     sitemap_changed = update_sitemap(posts)
 
     print(

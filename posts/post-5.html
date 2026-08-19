@@ -58,12 +58,20 @@ footer { text-align: center; padding: 40px 20px; color: #999; }
 .post-card { background: var(--white); padding: 25px; border-radius: 20px;
              box-shadow: 0 4px 15px rgba(0,0,0,0.05);
              border-bottom: 4px solid var(--primary-color); margin-bottom: 20px;
-             transition: 0.3s; }
+             transition: 0.3s; overflow: hidden; }
 .post-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.post-card .card-img-link { display: block; margin: -25px -25px 15px;
+                            overflow: hidden; border-radius: 20px 20px 0 0; }
+.post-card .card-img { display: block; width: 100%; height: 200px;
+                       object-fit: cover; transition: 0.4s; }
+.post-card:hover .card-img { transform: scale(1.04); }
 .post-card .meta { color: #888; font-size: 0.85em; text-transform: uppercase;
                    margin-bottom: 10px; letter-spacing: 0.5px; }
 .post-card .announce { color: #444; margin-bottom: 15px; line-height: 1.5; }
 .post-card .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.post-photos { margin: 0 0 25px; }
+.post-photos img { display: block; width: 100%; height: auto;
+                   border-radius: 18px; margin: 0 0 10px; }
 .btn-primary { display: inline-block; background: var(--accent-color); color: white;
                padding: 10px 22px; border-radius: 50px; text-decoration: none;
                font-weight: bold; font-size: 0.95em; transition: 0.3s; }
@@ -83,7 +91,7 @@ footer { text-align: center; padding: 40px 20px; color: #999; }
 </style>
 </head>
 <body>
-<header><div class="container"><h1>Mid of spring vibe 🌿 * Courage- храбрость/ смелост…</h1><p><a class="back-link" href="https://tutorio.online/blog.html">&larr; Все публикации</a></p></div></header><article class="post-content"><div class="meta">13.04.2026 13:14</div><div class="body"><div class="tgme_widget_message_text js-message_text" dir="auto"><b>Mid of spring vibe</b> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8CBF.png')"><b>🌿</b></i><br/><br/>* Courage- храбрость/ смелость <br/>* To keep room for smth - оставлять место для чего-то</div></div><p style="margin-top: 30px;"><a href="https://t.me/tutorio_channel/5" target="_blank" class="bot-cta">Открыть в Telegram &rarr;</a></p></article>
+<header><div class="container"><h1>Mid of spring vibe 🌿 * Courage- храбрость/ смелост…</h1><p><a class="back-link" href="https://tutorio.online/blog.html">&larr; Все публикации</a></p></div></header><article class="post-content"><div class="meta">13.04.2026 13:14</div><div class="post-photos"><img src="/assets/images/posts/post-5.jpg" alt="Mid of spring vibe 🌿 * Courage- храбрость/ смелост…" loading="lazy"></div><div class="body"><div class="tgme_widget_message_text js-message_text" dir="auto"><b>Mid of spring vibe</b> <i class="emoji" style="background-image:url('//telegram.org/img/emoji/40/F09F8CBF.png')"><b>🌿</b></i><br/><br/>* Courage- храбрость/ смелость <br/>* To keep room for smth - оставлять место для чего-то</div></div><p style="margin-top: 30px;"><a href="https://t.me/tutorio_channel/5" target="_blank" class="bot-cta">Открыть в Telegram &rarr;</a></p></article>
 <footer>
     <div class="social-links">
         <a href="https://t.me/tutorio_channel" target="_blank" class="social-icon">Telegram</a>
