@@ -927,12 +927,19 @@ function filterSlots(filter, btn) {
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    } else {
-        window.addEventListener('DOMContentLoaded', function() {
-            if (window.lucide) lucide.createIcons();
-        });
+    function initLucide() {
+        if (typeof lucide !== 'undefined' && lucide.createIcons) {
+            lucide.createIcons();
+            return true;
+        }
+        return false;
+    }
+    // Try immediately (Lucide is loaded synchronously via <script src>)
+    if (!initLucide()) {
+        // Retry after DOM is ready (in case Lucide loads later)
+        document.addEventListener('DOMContentLoaded', initLucide);
+        // Final fallback: retry after a short delay (e.g. slow CDN)
+        setTimeout(initLucide, 200);
     }
 </script>
 
