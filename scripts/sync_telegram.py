@@ -7,6 +7,7 @@ Outputs:
   - /blog.html — index of all posts
   - /sitemap.xml — updated sitemap
   - /index2.html — injects 3 latest post cards into #latest-posts section
+  - /index3.html — injects 3 latest post cards (modern style) into #latest-posts section
 
 Idempotent: re-running with no new posts is a no-op for post files (only
 updates lastmod when content actually changes).
@@ -39,6 +40,7 @@ IMAGES_DIR = REPO_ROOT / "assets" / "images" / "posts"
 BLOG_FILE = REPO_ROOT / "blog.html"
 SITEMAP_FILE = REPO_ROOT / "sitemap.xml"
 INDEX2_FILE = REPO_ROOT / "index2.html"
+INDEX3_FILE = REPO_ROOT / "index3.html"
 
 # Regex to extract URLs from Telegram's `background-image:url('...')` style
 BG_IMG_RE = re.compile(r"background-image\s*:\s*url\(['\"]?([^'\")]+)['\"]?\)")
@@ -464,6 +466,89 @@ def render_post_card(p: Post, local_exists: dict[str, bool]) -> str:
     return _render_card(p, local_exists, full_card=False)
 
 
+def render_modern_post_card(p: Post, local_exists: dict[str, bool]) -> str:
+    """Modern-style card for index3.html.
+
+    Layout: rounded image on top (border-radius 12px), then a small date chip,
+    a short title, the announcement and a 'Read' link button with arrow icon.
+    Falls back to a neutral placeholder block if the post has no image.
+    """
+    announce = p.announce.replace("&", "&amp;").replace("<", "&lt;")
+    title = p.title.replace("&", "&amp;").replace("<", "&lt;")
+
+    if p.image_url:
+        first_local = local_exists.get(p.pid, False)
+        src = (
+            f"/assets/images/posts/post-{p.pid}.jpg"
+            if first_local
+            else p.image_url
+        )
+        img_html = (
+            f"<a class=\"card-img-link\" href=\"/posts/post-{p.pid}.html\">"
+            f"<img class=\"card-img\" src=\"{src}\" alt=\"{title}\" loading=\"lazy\">"
+            f"</a>"
+        )
+    else:
+        # Neutral placeholder block (still rounded, keeps grid alignment)
+        img_html = (
+            "<a class=\"card-img-link card-img-placeholder\" "
+            f"href=\"/posts/post-{p.pid}.html\" aria-label=\"{title}\">"
+            "<i data-lucide=\"file-text\"></i>"
+            "</a>"
+        )
+
+    return (
+        "<article class=\"post-card-modern\">"
+        f"{img_html}"
+        "<div class=\"card-body\">"
+        f"<span class=\"date-chip\"><span class=\"dot\"></span>{p.date_human}</span>"
+        f"<h3 class=\"card-title\">{title}</h3>"
+        f"<p class=\"announce\">{announce}</p>"
+        f"<a class=\"btn-read\" href=\"/posts/post-{p.pid}.html\">"
+        "Читать <i data-lucide=\"arrow-right\"></i>"
+        "</a>"
+        "</div>"
+        "</article>"
+    )
+
+
+def update_index3(posts: list[Post], local_exists: dict[str, bool]) -> bool:
+    """Replace content between <!-- BEGIN POSTS-MODERN --> and <!-- END POSTS-MODERN -->
+    in index3.html with 3 modern-style cards (newest posts).
+
+    Returns True if the file was modified.
+    """
+    if not INDEX3_FILE.exists():
+        print(f"[skip] {INDEX3_FILE} not found", file=sys.stderr)
+        return False
+
+    text = INDEX3_FILE.read_text(encoding="utf-8")
+    begin = "<!-- BEGIN POSTS-MODERN -->"
+    end = "<!-- END POSTS-MODERN -->"
+    if begin not in text or end not in text:
+        print(
+            f"[warn] markers not found in {INDEX3_FILE.name}: "
+            "expected <!-- BEGIN POSTS-MODERN --> ... <!-- END POSTS-MODERN -->",
+            file=sys.stderr,
+        )
+        return False
+
+    latest = posts[:3]
+    if not latest:
+        print("[warn] no posts to inject into index3", file=sys.stderr)
+        return False
+    inner = "\n".join(render_modern_post_card(p, local_exists) for p in latest)
+    new_block = f"{begin}\n{inner}\n{end}"
+
+    pattern = re.compile(re.escape(begin) + r".*?" + re.escape(end), re.DOTALL)
+    new_text, n = pattern.subn(new_block, text, count=1)
+    if n == 0 or new_text == text:
+        return False
+
+    INDEX3_FILE.write_text(new_text, encoding="utf-8")
+    return True
+
+
 def update_index2(posts: list[Post], local_exists: dict[str, bool]) -> bool:
     """Replace content between <!-- BEGIN POSTS --> and <!-- END POSTS --> in index2.html.
 
@@ -531,6 +616,7 @@ def update_sitemap(posts: list[Post]) -> bool:
     lines.append(url_entry(f"{SITE_ORIGIN}/", "1.0", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/index1.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/index2.html", "0.9", "weekly"))
+    lines.append(url_entry(f"{SITE_ORIGIN}/index3.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/blog.html", "0.9", "daily"))
     for p in posts:
         lines.append(url_entry(f"{SITE_ORIGIN}/posts/post-{p.pid}.html", "0.7", "monthly"))
@@ -599,12 +685,14 @@ def main() -> int:
         blog_changed = True
 
     index2_changed = update_index2(posts, local_exists)
+    index3_changed = update_index3(posts, local_exists)
     sitemap_changed = update_sitemap(posts)
 
     print(
         f"[summary] posts_written={len(written_posts)} "
         f"blog_changed={blog_changed} "
         f"index2_changed={index2_changed} "
+        f"index3_changed={index3_changed} "
         f"sitemap_changed={sitemap_changed}"
     )
 
