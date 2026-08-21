@@ -41,6 +41,7 @@ BLOG_FILE = REPO_ROOT / "blog.html"
 SITEMAP_FILE = REPO_ROOT / "sitemap.xml"
 INDEX2_FILE = REPO_ROOT / "index2.html"
 INDEX3_FILE = REPO_ROOT / "index3.html"
+INDEX5_FILE = REPO_ROOT / "index5.html"
 
 # Regex to extract URLs from Telegram's `background-image:url('...')` style
 BG_IMG_RE = re.compile(r"background-image\s*:\s*url\(['\"]?([^'\")]+)['\"]?\)")
@@ -512,22 +513,23 @@ def render_modern_post_card(p: Post, local_exists: dict[str, bool]) -> str:
     )
 
 
-def update_index3(posts: list[Post], local_exists: dict[str, bool]) -> bool:
+def update_index_modern(target_file: Path, posts: list[Post], local_exists: dict[str, bool]) -> bool:
     """Replace content between <!-- BEGIN POSTS-MODERN --> and <!-- END POSTS-MODERN -->
-    in index3.html with 3 modern-style cards (newest posts).
+    in target_file (e.g. index3.html, index5.html) with 3 modern-style cards
+    (newest posts).
 
     Returns True if the file was modified.
     """
-    if not INDEX3_FILE.exists():
-        print(f"[skip] {INDEX3_FILE} not found", file=sys.stderr)
+    if not target_file.exists():
+        print(f"[skip] {target_file} not found", file=sys.stderr)
         return False
 
-    text = INDEX3_FILE.read_text(encoding="utf-8")
+    text = target_file.read_text(encoding="utf-8")
     begin = "<!-- BEGIN POSTS-MODERN -->"
     end = "<!-- END POSTS-MODERN -->"
     if begin not in text or end not in text:
         print(
-            f"[warn] markers not found in {INDEX3_FILE.name}: "
+            f"[warn] markers not found in {target_file.name}: "
             "expected <!-- BEGIN POSTS-MODERN --> ... <!-- END POSTS-MODERN -->",
             file=sys.stderr,
         )
@@ -535,7 +537,7 @@ def update_index3(posts: list[Post], local_exists: dict[str, bool]) -> bool:
 
     latest = posts[:3]
     if not latest:
-        print("[warn] no posts to inject into index3", file=sys.stderr)
+        print(f"[warn] no posts to inject into {target_file.name}", file=sys.stderr)
         return False
     inner = "\n".join(render_modern_post_card(p, local_exists) for p in latest)
     new_block = f"{begin}\n{inner}\n{end}"
@@ -545,8 +547,13 @@ def update_index3(posts: list[Post], local_exists: dict[str, bool]) -> bool:
     if n == 0 or new_text == text:
         return False
 
-    INDEX3_FILE.write_text(new_text, encoding="utf-8")
+    target_file.write_text(new_text, encoding="utf-8")
     return True
+
+
+# Backward-compatible alias
+def update_index3(posts: list[Post], local_exists: dict[str, bool]) -> bool:
+    return update_index_modern(INDEX3_FILE, posts, local_exists)
 
 
 def update_index2(posts: list[Post], local_exists: dict[str, bool]) -> bool:
@@ -617,6 +624,7 @@ def update_sitemap(posts: list[Post]) -> bool:
     lines.append(url_entry(f"{SITE_ORIGIN}/index1.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/index2.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/index3.html", "0.9", "weekly"))
+    lines.append(url_entry(f"{SITE_ORIGIN}/index5.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/blog.html", "0.9", "daily"))
     for p in posts:
         lines.append(url_entry(f"{SITE_ORIGIN}/posts/post-{p.pid}.html", "0.7", "monthly"))
@@ -685,7 +693,8 @@ def main() -> int:
         blog_changed = True
 
     index2_changed = update_index2(posts, local_exists)
-    index3_changed = update_index3(posts, local_exists)
+    index3_changed = update_index_modern(INDEX3_FILE, posts, local_exists)
+    index5_changed = update_index_modern(INDEX5_FILE, posts, local_exists)
     sitemap_changed = update_sitemap(posts)
 
     print(
@@ -693,6 +702,7 @@ def main() -> int:
         f"blog_changed={blog_changed} "
         f"index2_changed={index2_changed} "
         f"index3_changed={index3_changed} "
+        f"index5_changed={index5_changed} "
         f"sitemap_changed={sitemap_changed}"
     )
 
