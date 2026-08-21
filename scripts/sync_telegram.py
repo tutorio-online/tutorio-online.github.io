@@ -42,6 +42,7 @@ SITEMAP_FILE = REPO_ROOT / "sitemap.xml"
 INDEX2_FILE = REPO_ROOT / "index2.html"
 INDEX3_FILE = REPO_ROOT / "index3.html"
 INDEX5_FILE = REPO_ROOT / "index5.html"
+INDEX6_FILE = REPO_ROOT / "index6.html"
 
 # Regex to extract URLs from Telegram's `background-image:url('...')` style
 BG_IMG_RE = re.compile(r"background-image\s*:\s*url\(['\"]?([^'\")]+)['\"]?\)")
@@ -263,14 +264,45 @@ def parse_posts(html: str) -> list[Post]:
         except Exception:
             date_human = date_iso
 
-        # Extract all photo URLs (single or grouped). Telegram stores them as
-        # `background-image:url('...')` on `<a class="tgme_widget_message_photo_wrap">`.
+        # Extract all image URLs (single or grouped) from three sources:
+        #   1. `<a class="tgme_widget_message_photo_wrap">`   — regular photos
+        #      (image lives in `background-image:url('...')`).
+        #   2. `<a class="tgme_widget_message_video_thumb">`  — video thumbnails
+        #      (same background-image trick, used for video previews).
+        #   3. `<img class="tgme_widget_message_link_preview_image">` and/or
+        #      `<* class="tgme_widget_message_link_preview_image">` with a
+        #      `background-image` — image from a link preview card.
         image_urls: list[str] = []
-        for a in div.find_all("a", class_="tgme_widget_message_photo_wrap"):
-            style = a.get("style", "")
+
+        def _push_bg_url(node) -> None:
+            style = node.get("style", "") if hasattr(node, "get") else ""
             m = BG_IMG_RE.search(style)
             if m and m.group(1) not in image_urls:
                 image_urls.append(m.group(1))
+
+        def _push_img_src(node) -> None:
+            src = (node.get("src", "") or "").strip() if hasattr(node, "get") else ""
+            if src and src not in image_urls:
+                image_urls.append(src)
+
+        # 1) Regular photo wrap (Telegram uses <a> here)
+        for a in div.find_all("a", class_="tgme_widget_message_photo_wrap"):
+            _push_bg_url(a)
+
+        # 2) Video thumbnail — Telegram emits this as an <i> (not <a>),
+        #    so we match by class only, not by tag.
+        for node in div.find_all(class_="tgme_widget_message_video_thumb"):
+            _push_bg_url(node)
+
+        # 3) Link preview image: <img src="..."> first, then anything with
+        #    the same class that carries a background-image fallback.
+        for img in div.find_all("img", class_="tgme_widget_message_link_preview_image"):
+            _push_img_src(img)
+        for node in div.find_all(
+            lambda el: el.has_attr("class")
+            and "tgme_widget_message_link_preview_image" in (el.get("class") or [])
+        ):
+            _push_bg_url(node)
 
         out.append(
             Post(
@@ -625,6 +657,7 @@ def update_sitemap(posts: list[Post]) -> bool:
     lines.append(url_entry(f"{SITE_ORIGIN}/index2.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/index3.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/index5.html", "0.9", "weekly"))
+    lines.append(url_entry(f"{SITE_ORIGIN}/index6.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/blog.html", "0.9", "daily"))
     for p in posts:
         lines.append(url_entry(f"{SITE_ORIGIN}/posts/post-{p.pid}.html", "0.7", "monthly"))
@@ -695,6 +728,7 @@ def main() -> int:
     index2_changed = update_index2(posts, local_exists)
     index3_changed = update_index_modern(INDEX3_FILE, posts, local_exists)
     index5_changed = update_index_modern(INDEX5_FILE, posts, local_exists)
+    index6_changed = update_index_modern(INDEX6_FILE, posts, local_exists)
     sitemap_changed = update_sitemap(posts)
 
     print(
@@ -703,6 +737,7 @@ def main() -> int:
         f"index2_changed={index2_changed} "
         f"index3_changed={index3_changed} "
         f"index5_changed={index5_changed} "
+        f"index6_changed={index6_changed} "
         f"sitemap_changed={sitemap_changed}"
     )
 
