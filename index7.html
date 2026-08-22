@@ -6,9 +6,9 @@
     <title>Избавься от языкового барьера! Английский для тех, кто хочет результат | Tutorio</title>
     <meta name="description" content="Индивидуальные и групповые занятия английским языком онлайн. Группы от €10, индивидуально от €35. Бесплатное вводное занятие.">
     <meta name="keywords" content="репетитор английского, английский онлайн, разговорный английский, изучение английского, Tutorio">
-    <link rel="canonical" href="https://tutorio.online/index7.html">
+    <link rel="canonical" href="https://tutorio.online/index6.html">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tutorio.online/index7.html">
+    <meta property="og:url" content="https://tutorio.online/index6.html">
     <meta property="og:title" content="Избавься от языкового барьера! Английский для тех, кто хочет результат | Tutorio">
     <meta property="og:description" content="Индивидуальные и групповые занятия английским онлайн. Группы от €10, индивидуально от €35. Бесплатное вводное занятие.">
     <meta property="og:image" content="https://tutorio.online/og-image.png">
@@ -84,7 +84,7 @@
             position: relative;
             overflow: hidden;
             background: #F8F9FA;
-            padding: 110px 24px 96px; text-align: left;
+            padding: 110px 24px 96px; text-align: center;
             border-radius: 0 0 40px 40px;
             border-bottom: 1px solid var(--border);
         }
@@ -130,28 +130,29 @@
         }
         .hero h1 span { color: var(--primary); }
 
-        /* ─── HERO FLEX (двухколоночный) · index7 ──────────────────────────── */
-        .hero-flex {
+        .hero {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 40px;
-            flex-wrap: wrap;
-            text-align: left;
         }
-        .hero-left { flex: 1 1 55%; text-align: left; }
-        .hero-right { flex: 0 1 42%; min-width: 280px; }
-        .hero-right img {
+        .hero-content {
+            flex: 0 0 55%;
+            max-width: 55%;
+        }
+        .hero-image {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .hero-image img {
             display: block;
-            width: 100%;
-            height: auto;
             max-width: 100%;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 12px 36px rgba(17, 24, 39, 0.12);
         }
         @media (max-width: 768px) {
-            .hero-flex { flex-direction: column; align-items: flex-start; gap: 32px; }
-            .hero-left, .hero-right { flex: 1 1 100%; }
+            .hero { flex-direction: column; }
+            .hero-content { flex: 0 0 auto; max-width: 100%; }
         }
 
         .price-plate {
@@ -204,8 +205,8 @@
         .about-text { flex: 2; }
         .about-text h2 { color: #1f2937; margin: 0 0 12px; font-size: 1.7rem; font-weight: 600; letter-spacing: -0.02em; }
         .about-text p { color: var(--text-muted); margin: 0 0 12px; }
-        .about-text ul { margin: 18px 0; padding-left: 20px; }
-        .about-text ul li { margin-bottom: 10px; color: var(--text); }
+        .about-text ul { margin: 18px 0; padding-left: 0; list-style: none; }
+        .about-text ul li { margin-bottom: 12px; color: var(--text); }
         .about-text strong { color: #1f2937; }
 
         /* ─── FEATURES (Glassmorphism) ──────────────────────────────────────── */
@@ -424,7 +425,7 @@
         .social-icon:hover { color: var(--primary); }
 
         /* ═══════════════════════════════════════════════════════════════════
-           MODERN POST CARDS · Glassmorphism (index7.html)
+           MODERN POST CARDS · Glassmorphism (index6.html)
            ═══════════════════════════════════════════════════════════════════ */
         #latest-posts {
             margin: 72px 0 40px;
@@ -489,8 +490,9 @@
         .post-card-modern .card-img {
             display: block;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            background-color: #F8F9FA;
             border-radius: 16px 16px 0 0;
             transition: transform 0.4s ease;
         }
@@ -712,16 +714,16 @@
 </nav>
 
 <header>
-    <div class="container hero hero-flex">
-        <div class="hero-left">
-            <h1>Избавься от языкового барьера! Английский для тех, кто хочет результат</h1>
-            <div class="price-plate">Запишись на вводное бесплатное занятие (Группы от €10 | Индивидуально €35)</div>
+    <div class="container hero">
+        <div class="hero-content">
+            <h1>Избавься от языкового барьера!<br>Английский для тех, кто хочет<br>результат.</h1>
+            <div class="price-plate">Запишись на вводное бесплатное занятие</div>
             <div class="cta-group">
                 <a href="#booking" class="main-cta">Записаться на урок <i data-lucide="arrow-right"></i></a>
             </div>
         </div>
-        <div class="hero-right">
-            <img src="og-image.png" alt="Лизавета — преподаватель английского" loading="lazy">
+        <div class="hero-image">
+            <img src="og-image.png" alt="Tutorio — английский онлайн">
         </div>
     </div>
 </header>
@@ -969,7 +971,7 @@
         <p class="section-sub">Полезные материалы об английском из нашего канала</p>
         <div class="posts-grid">
             <!-- BEGIN POSTS-MODERN -->
-<article class="post-card-modern"><a class="card-img-link card-img-placeholder" href="/posts/post-24.html" aria-label="Dualingo в Китае выпустил бумажные салфетки, котор…"><i data-lucide="file-text"></i></a><div class="card-body"><span class="date-chip"><span class="dot"></span>19.08.2026 10:38</span><h3 class="card-title">Dualingo в Китае выпустил бумажные салфетки, котор…</h3><p class="announce">Dualingo в Китае выпустил бумажные салфетки, которые помогают в изучении языка Они печатают слова на них, чтобы покупатель мог учить слова…</p><a class="btn-read" href="/posts/post-24.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
+<article class="post-card-modern"><a class="card-img-link" href="/posts/post-24.html"><img class="card-img" src="/assets/images/posts/post-24.jpg" alt="Dualingo в Китае выпустил бумажные салфетки, котор…" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>19.08.2026 10:38</span><h3 class="card-title">Dualingo в Китае выпустил бумажные салфетки, котор…</h3><p class="announce">Dualingo в Китае выпустил бумажные салфетки, которые помогают в изучении языка Они печатают слова на них, чтобы покупатель мог учить слова…</p><a class="btn-read" href="/posts/post-24.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
 <article class="post-card-modern"><a class="card-img-link card-img-placeholder" href="/posts/post-21.html" aria-label="Разница между Do и Make Если вы говорите об измене…"><i data-lucide="file-text"></i></a><div class="card-body"><span class="date-chip"><span class="dot"></span>25.06.2026 11:25</span><h3 class="card-title">Разница между Do и Make Если вы говорите об измене…</h3><p class="announce">📝 Разница между Do и Make Если вы говорите об изменении размера/формы / состояния чего-то, то используете « MAKE ». "Can you make the wood…</p><a class="btn-read" href="/posts/post-21.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
 <article class="post-card-modern"><a class="card-img-link" href="/posts/post-17.html"><img class="card-img" src="/assets/images/posts/post-17.jpg" alt="20 минут каждый день and you will tell the differe…" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>23.06.2026 17:35</span><h3 class="card-title">20 минут каждый день and you will tell the differe…</h3><p class="announce">20 минут каждый день and you will tell the difference !</p><a class="btn-read" href="/posts/post-17.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
 <!-- END POSTS-MODERN -->
@@ -982,7 +984,7 @@
 
 <section id="bot-block" class="bot-section">
     <h2>Бот как бонус! Делюсь бесплатно, можете начать заниматься уже сейчас</h2>
-    <p>Чат-бот Tutoriosa для практики</p>
+    <p>Чат-бот Tutoriossa для практики</p>
     <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta">Пообщаться с ботом <i data-lucide="send"></i></a>
 </section>
 
