@@ -84,6 +84,52 @@ footer { text-align: center; padding: 40px 20px; color: #999; }
     .post-content { padding: 25px; margin: 20px; border-radius: 20px; }
     header h1 { font-size: 1.3em; }
 }
+
+/* ═══ UNIFORM TRANSPARENT OUTLINE BUTTONS (как в index5.html) ═══ */
+.btn, button, .button, a.cta-button,
+.btn-primary, .btn-accent, .btn-outline, .btn-ghost, .btn-md, .btn-lg,
+.main-cta, .bot-cta, .nav-cta,
+.filter-btn, .book-btn, .confirm-btn, .btn-read,
+.btn-secondary, .back-link,
+.price-plate {
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid #2563eb !important;
+    color: #2563eb !important;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 180px;
+    height: 48px;
+    box-sizing: border-box;
+    padding: 0 22px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover, button:hover, .button:hover, a.cta-button:hover,
+.main-cta:hover, .bot-cta:hover, .nav-cta:hover,
+.filter-btn:hover, .book-btn:hover, .confirm-btn:hover, .btn-read:hover,
+.btn-secondary:hover, .back-link:hover,
+.price-plate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px -4px rgba(37, 99, 235, 0.25);
+}
+@media (max-width: 600px) {
+    .btn, button, .button, a.cta-button,
+    .btn-primary, .btn-accent, .btn-outline, .btn-ghost, .btn-md, .btn-lg,
+    .main-cta, .bot-cta, .nav-cta,
+    .filter-btn, .book-btn, .confirm-btn, .btn-read,
+    .btn-secondary, .back-link,
+    .price-plate {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
 </style>
 </head>
 <body>
