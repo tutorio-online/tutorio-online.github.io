@@ -673,7 +673,8 @@
                 /* ═══ UNIFORM TRANSPARENT OUTLINE BUTTONS ═══ */
         .btn, button, .button, a.cta-button,
         .main-cta, .bot-cta, .nav-cta,
-        .filter-btn, .book-btn, .confirm-btn, .btn-read {
+        .filter-btn, .book-btn, .confirm-btn, .btn-read,
+        .price-plate {
             border-radius: 8px;
             background: transparent;
             border: 2px solid #2563eb;
@@ -693,8 +694,15 @@
         }
         .btn:hover, button:hover, .button:hover, a.cta-button:hover,
         .main-cta:hover, .bot-cta:hover, .nav-cta:hover,
-        .filter-btn:hover, .book-btn:hover, .confirm-btn:hover, .btn-read:hover {
+        .filter-btn:hover, .book-btn:hover, .confirm-btn:hover, .btn-read:hover,
+        .price-plate:hover {
             background: rgba(37, 99, 235, 0.08);
+        }
+        /* Кнопки в одной группе — одинаковой ширины */
+        .cta-group > .main-cta,
+        .cta-group > .bot-cta,
+        .cta-group > .nav-cta {
+            flex: 1;
         }
         .filter-btn.active {
             background: #2563eb;
@@ -704,7 +712,8 @@
         @media (max-width: 480px) {
             .btn, button, .button, a.cta-button,
             .main-cta, .bot-cta, .nav-cta,
-            .filter-btn, .book-btn, .confirm-btn, .btn-read {
+            .filter-btn, .book-btn, .confirm-btn, .btn-read,
+            .price-plate {
                 width: 100%;
                 min-width: 0;
             }
@@ -732,7 +741,7 @@
         <h1 style="text-align: center;">Избавься от языкового барьера!<br>Английский для тех, кто хочет<br>результат.</h1>
         <div class="price-plate">Запишись на вводное бесплатное занятие</div>
         <div class="cta-group">
-            <a href="#booking" class="main-cta">Записаться на урок <i data-lucide="arrow-right"></i></a>
+            <a href="#booking" class="main-cta">Записаться на урок</a>
         </div>
     </div>
 </header>
@@ -754,8 +763,8 @@
             </ul>
 
             <div class="cta-group" style="margin-top: 24px; justify-content: flex-start;">
-                <a href="#booking" class="main-cta">Записаться на занятие <i data-lucide="arrow-right"></i></a>
-                <a href="#booking" class="bot-cta"><i data-lucide="calendar"></i> Свободные окошки</a>
+                <a href="#booking" class="main-cta">Записаться на занятие</a>
+                <a href="#booking" class="bot-cta">Свободные окошки</a>
             </div>
         </div>
     </section>
