@@ -398,6 +398,19 @@
             transition: var(--transition);
         }
         .social-icon:hover { color: var(--primary); }
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            display: block;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
         /* ═══════════════════════════════════════════════════════════════════
            MODERN POST CARDS · Glassmorphism (index6.html)
@@ -704,10 +717,20 @@
         .cta-group > .nav-cta {
             flex: 1;
         }
+        /* Hero: price-plate и main-cta — одного размера */
+        .hero .price-plate,
+        .hero .cta-group > .main-cta {
+            width: 100%;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
         .filter-btn.active {
-            background: #2563eb;
-            color: #fff;
+            background: transparent;
+            color: #2563eb;
             border-color: #2563eb;
+            border-width: 3px;
+            font-weight: 700;
         }
         @media (max-width: 480px) {
             .btn, button, .button, a.cta-button,
