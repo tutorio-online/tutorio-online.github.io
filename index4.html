@@ -6,9 +6,9 @@
     <title>Избавься от языкового барьера! Английский для тех, кто хочет результат | Tutorio</title>
     <meta name="description" content="Индивидуальные и групповые занятия английским языком онлайн. Группы от €10, индивидуально от €35. Бесплатное вводное занятие.">
     <meta name="keywords" content="репетитор английского, английский онлайн, разговорный английский, изучение английского, Tutorio">
-    <link rel="canonical" href="https://tutorio.online/index4.html">
+    <link rel="canonical" href="https://tutorio.online/">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tutorio.online/index4.html">
+    <meta property="og:url" content="https://tutorio.online/">
     <meta property="og:title" content="Избавься от языкового барьера! Английский для тех, кто хочет результат | Tutorio">
     <meta property="og:description" content="Индивидуальные и групповые занятия английским онлайн. Группы от €10, индивидуально от €35. Бесплатное вводное занятие.">
     <meta property="og:image" content="https://tutorio.online/og-image.png">
@@ -30,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>        /* ═══════════════════════════════════════════════════════════════════
-           APPLE CLEAN MINIMAL · TUTORIO index4
+           APPLE CLEAN MINIMAL · TUTORIO index5
            Шрифт: Plus Jakarta Sans. Glassmorphism на всех карточках.
            ═══════════════════════════════════════════════════════════════════ */
 
@@ -180,8 +180,8 @@
         .about-text { flex: 2; }
         .about-text h2 { color: #1f2937; margin: 0 0 12px; font-size: 1.7rem; font-weight: 600; letter-spacing: -0.02em; }
         .about-text p { color: var(--text-muted); margin: 0 0 12px; }
-        .about-text ul { margin: 18px 0; padding-left: 20px; }
-        .about-text ul li { margin-bottom: 10px; color: var(--text); }
+        .about-text ul { margin: 18px 0; padding-left: 0; list-style: none; }
+        .about-text ul li { margin-bottom: 12px; color: var(--text); }
         .about-text strong { color: #1f2937; }
 
         /* ─── FEATURES (Glassmorphism) ──────────────────────────────────────── */
@@ -400,7 +400,7 @@
         .social-icon:hover { color: var(--primary); }
 
         /* ═══════════════════════════════════════════════════════════════════
-           MODERN POST CARDS · Glassmorphism (index4.html)
+           MODERN POST CARDS · Glassmorphism (index6.html)
            ═══════════════════════════════════════════════════════════════════ */
         #latest-posts {
             margin: 72px 0 40px;
@@ -465,8 +465,9 @@
         .post-card-modern .card-img {
             display: block;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            background-color: #F8F9FA;
             border-radius: 16px 16px 0 0;
             transition: transform 0.4s ease;
         }
@@ -564,14 +565,133 @@
             .hero h1 { font-size: 1.8rem; }
             .booking-section { padding: 32px 20px; }
         }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           STICKY NAVBAR · index5
+           ═══════════════════════════════════════════════════════════════════ */
+        .sticky-nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 24px; gap: 24px;
+        }
+        .nav-logo {
+            font-weight: 700; letter-spacing: -0.02em;
+            font-size: 1.15rem; color: #111827;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .nav-logo:hover { color: var(--primary); }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a {
+            color: var(--text); text-decoration: none;
+            font-weight: 500; font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta { padding: 10px 20px; font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-inner { padding: 12px 20px; }
+            .nav-cta { padding: 9px 16px; font-size: 0.85rem; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           REVIEWS · index5
+           ═══════════════════════════════════════════════════════════════════ */
+        #reviews { margin: 72px 0 40px; }
+        #reviews h2 {
+            text-align: center;
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 8px;
+            color: #1f2937;
+        }
+        #reviews .section-sub {
+            text-align: center;
+            color: var(--text-muted);
+            margin: 0 0 32px;
+            font-size: 0.95rem;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+        .review-card {
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 26px;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            display: flex; flex-direction: column;
+        }
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-strong);
+        }
+        .review-head {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+        }
+        .review-avatar {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8efff 100%);
+            color: var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .review-name { font-weight: 600; color: #1f2937; font-size: 1rem; line-height: 1.2; }
+        .review-goal {
+            display: inline-block;
+            background: #f0f4ff; color: var(--primary);
+            padding: 4px 10px; border-radius: var(--radius-pill);
+            font-size: 0.72rem; font-weight: 600;
+            letter-spacing: 0.02em; text-transform: uppercase;
+            margin-top: 6px;
+        }
+        .review-stars {
+            color: #f59e0b; font-size: 0.95rem;
+            letter-spacing: 1px; margin: 4px 0 12px;
+        }
+        .review-text {
+            color: var(--text-muted); font-size: 0.95rem; line-height: 1.55;
+            margin: 0; flex-grow: 1;
+        }
+        .reviews-cta { text-align: center; margin-top: 32px; }
+        .reviews-cta .btn { display: inline-flex; gap: 8px; align-items: center; }
         </style>
 </head>
 <body>
 
+<!-- Sticky Navbar -->
+<nav class="sticky-nav" aria-label="Главная навигация">
+    <div class="container nav-inner">
+        <a href="#top" class="nav-logo">tutorio</a>
+        <div class="nav-links">
+            <a href="#about">Обо мне</a>
+            <a href="#booking">Форматы</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="/blog.html">Блог</a>
+        </div>
+        <a href="#booking" class="btn btn-primary btn-md nav-cta">Связаться</a>
+    </div>
+</nav>
+
 <header>
     <div class="container hero">
-        <h1>Избавься от языкового барьера! Английский для тех, кто хочет результат</h1>
-        <div class="price-plate">Запишись на вводное бесплатное занятие (Группы от €10 | Индивидуально €35)</div>
+        <h1 style="text-align: center;">Избавься от языкового барьера!<br>Английский для тех, кто хочет<br>результат.</h1>
+        <div class="price-plate">Запишись на вводное бесплатное занятие</div>
         <div class="cta-group">
             <a href="#booking" class="main-cta">Записаться на урок <i data-lucide="arrow-right"></i></a>
         </div>
@@ -579,7 +699,7 @@
 </header>
 
 <div class="container">
-    <section class="about-section">
+    <section id="about" class="about-section">
         <img src="IMG_about.jpg" alt="Лизавета, преподаватель английского" class="about-image">
         <div class="about-text">
             <h2>Привет! Меня зовут Лизавета, я ваш преподаватель...</h2>
@@ -755,7 +875,70 @@
         transform: translateY(-2px);
         box-shadow: 0 8px 18px -6px rgba(42, 82, 190, 0.4);
     }
+        /* ═══ BUTTON VARIANT 4: Elevated & Soft Shadow ═══ */
+        .btn, button, .button, a.cta {
+            border-radius: 10px;
+            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.35);
+        }
 </style>
+
+<section id="reviews">
+    <div class="container">
+        <h2>Отзывы учеников</h2>
+        <p class="section-sub">Что говорят те, кто уже занимается</p>
+        <div class="reviews-grid">
+            <article class="review-card">
+                <div class="review-head">
+                    <div class="review-avatar">АК</div>
+                    <div>
+                        <div class="review-name">Анна К.</div>
+                        <span class="review-goal">Подготовка к IELTS</span>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">За 4 месяца подтянула speaking с 5.5 до 7.0. Лизавета объясняет структуру, а не зубрит шаблоны. На уроках много говорим — это и есть ключ к баллу.</p>
+            </article>
+            <article class="review-card">
+                <div class="review-head">
+                    <div class="review-avatar">МД</div>
+                    <div>
+                        <div class="review-name">Михаил Д.</div>
+                        <span class="review-goal">Разговорный английский</span>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Нужно было прокачать английский для релокации. За 2 месяца перестал бояться звонить в поддержку и читать письма. Живые темы — про работу и путешествия — заходят сильно лучше учебника.</p>
+            </article>
+            <article class="review-card">
+                <div class="review-head">
+                    <div class="review-avatar">ЕС</div>
+                    <div>
+                        <div class="review-name">Елена С.</div>
+                        <span class="review-goal">Бизнес-английский</span>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Беру групповые занятия в мини-группе. Удобно, что много говорим, но и грамматику разбираем на реальных кейсах. Вижу прогресс уже после первого месяца.</p>
+            </article>
+            <article class="review-card">
+                <div class="review-head">
+                    <div class="review-avatar">ИП</div>
+                    <div>
+                        <div class="review-name">Игорь П.</div>
+                        <span class="review-goal">Для собеседований</span>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Готовились к интервью в международную компанию. Прошли по шагам: рассказ о себе, поведенческие вопросы, кейсы. Получил оффер через 3 недели.</p>
+            </article>
+        </div>
+        <div class="reviews-cta">
+            <a href="https://t.me/tutorio_channel" target="_blank" rel="noopener" class="btn btn-ghost btn-md">
+                Смотреть все отзывы в Telegram <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
 
 <section id="latest-posts">
     <div class="container">
@@ -763,7 +946,7 @@
         <p class="section-sub">Полезные материалы об английском из нашего канала</p>
         <div class="posts-grid">
             <!-- BEGIN POSTS-MODERN -->
-<article class="post-card-modern"><a class="card-img-link card-img-placeholder" href="/posts/post-24.html" aria-label="Dualingo в Китае выпустил бумажные салфетки, котор…"><i data-lucide="file-text"></i></a><div class="card-body"><span class="date-chip"><span class="dot"></span>19.08.2026 10:38</span><h3 class="card-title">Dualingo в Китае выпустил бумажные салфетки, котор…</h3><p class="announce">Dualingo в Китае выпустил бумажные салфетки, которые помогают в изучении языка Они печатают слова на них, чтобы покупатель мог учить слова…</p><a class="btn-read" href="/posts/post-24.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
+<article class="post-card-modern"><a class="card-img-link" href="/posts/post-24.html"><img class="card-img" src="/assets/images/posts/post-24.jpg" alt="Dualingo в Китае выпустил бумажные салфетки, котор…" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>19.08.2026 10:38</span><h3 class="card-title">Dualingo в Китае выпустил бумажные салфетки, котор…</h3><p class="announce">Dualingo в Китае выпустил бумажные салфетки, которые помогают в изучении языка Они печатают слова на них, чтобы покупатель мог учить слова…</p><a class="btn-read" href="/posts/post-24.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
 <article class="post-card-modern"><a class="card-img-link card-img-placeholder" href="/posts/post-21.html" aria-label="Разница между Do и Make Если вы говорите об измене…"><i data-lucide="file-text"></i></a><div class="card-body"><span class="date-chip"><span class="dot"></span>25.06.2026 11:25</span><h3 class="card-title">Разница между Do и Make Если вы говорите об измене…</h3><p class="announce">📝 Разница между Do и Make Если вы говорите об изменении размера/формы / состояния чего-то, то используете « MAKE ». "Can you make the wood…</p><a class="btn-read" href="/posts/post-21.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
 <article class="post-card-modern"><a class="card-img-link" href="/posts/post-17.html"><img class="card-img" src="/assets/images/posts/post-17.jpg" alt="20 минут каждый день and you will tell the differe…" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>23.06.2026 17:35</span><h3 class="card-title">20 минут каждый день and you will tell the differe…</h3><p class="announce">20 минут каждый день and you will tell the difference !</p><a class="btn-read" href="/posts/post-17.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
 <!-- END POSTS-MODERN -->
@@ -776,7 +959,7 @@
 
 <section id="bot-block" class="bot-section">
     <h2>Бот как бонус! Делюсь бесплатно, можете начать заниматься уже сейчас</h2>
-    <p>Чат-бот Tutoriosa для практики</p>
+    <p>Чат-бот Tutoriossa для практики</p>
     <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta">Пообщаться с ботом <i data-lucide="send"></i></a>
 </section>
 
