@@ -205,6 +205,13 @@
         .about-text p { color: var(--text-muted); margin: 0 0 12px; }
         .about-text ul { margin: 18px 0; padding-left: 0; list-style: none; }
         .about-text ul li { margin-bottom: 12px; color: var(--text); }
+        @media (max-width: 768px) {
+            .about-text ul li {
+                max-width: 240px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
         .about-text strong { color: #1f2937; }
 
         /* ─── FEATURES (Glassmorphism) ──────────────────────────────────────── */
@@ -751,7 +758,7 @@
     <a class="nav-item" href="https://t.me/tutorio_channel" target="_blank" rel="noopener">Telegram канал</a>
     <a class="nav-item" href="https://t.me/tutoriossa_bot" target="_blank" rel="noopener">Telegram бот</a>
 
-    <a href="#booking" class="btn btn-primary btn-md side-nav-btn">Записаться на занятие</a>
+    <a href="#booking" class="main-cta side-nav-btn">Записаться на занятие</a>
 </nav>
 
 <div class="side-nav-overlay" id="sideNavOverlay"></div>
