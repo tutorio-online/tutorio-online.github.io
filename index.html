@@ -354,7 +354,13 @@
         }
         .time-slot strong { display: block; color: var(--primary); font-size: 1.05rem; }
 
-        .filter-container { margin-bottom: 28px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .filter-container {
+            margin: 0 auto 28px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            max-width: 480px;
+        }
         .filter-btn {
             background: var(--card-solid); border: 1px solid var(--primary);
             color: var(--primary); padding: 10px 22px;
@@ -363,6 +369,13 @@
             white-space: nowrap;
             display: inline-flex; align-items: center; justify-content: center;
             transition: var(--transition);
+            width: 100%;
+        }
+        @media (max-width: 480px) {
+            .filter-container {
+                grid-template-columns: 1fr;
+                max-width: 280px;
+            }
         }
         .filter-btn:hover { background: #f0f4ff; transform: translateY(-2px); }
         .filter-btn.active { background: var(--primary); color: #fff; }
@@ -752,7 +765,6 @@
             <a href="#booking">Форматы</a>
             <a href="/blog.html">Блог</a>
         </div>
-        <a href="#booking" class="btn btn-primary btn-md nav-cta">Связаться</a>
         <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">
             <span></span>
             <span></span>
@@ -819,7 +831,7 @@
     <section id="booking" class="booking-section">
         <h2>Записаться на занятие</h2>
         
-        <p style="max-width: 700px; margin: 0 auto 25px; color: #444; font-size: 1.15em; line-height: 1.6;">
+        <p style="max-width: 700px; margin: 0 auto 25px; color: #444; font-size: clamp(0.85rem, 2vw, 1.05rem); line-height: 1.6;">
             Группы от 3 до 5 человек — 10 евро<br>
             Индивидуальные занятия — 35 евро<br>
             <strong>Выберите подходящий формат ниже</strong>
