@@ -250,6 +250,7 @@
         .btn-lg { padding: 16px 32px; font-size: 1.05rem; }
         .btn-md { padding: 12px 24px; font-size: 0.95rem; }
         .btn svg, .btn [data-lucide] { width: 1.1em; height: 1.1em; stroke-width: 2.5; }
+        .main-cta, .bot-cta, .nav-cta, .btn-read { white-space: nowrap; }
 
         .btn-primary {
             background: var(--primary); color: #fff;
@@ -338,27 +339,17 @@
         }
         .time-slot strong { display: block; color: var(--primary); font-size: 1.05rem; }
 
-        .filter-container { margin-bottom: 28px; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+        .filter-container { margin-bottom: 28px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .filter-btn {
-            background: transparent;
-            border: 2px solid #2563eb;
-            color: #2563eb;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
-            max-width: 280px;
-            height: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 22px;
-            box-sizing: border-box;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            background: var(--card-solid); border: 1px solid var(--primary);
+            color: var(--primary); padding: 10px 22px;
+            border-radius: var(--radius-pill);
+            cursor: pointer; font-weight: 600;
+            white-space: nowrap;
+            transition: var(--transition);
         }
-        .filter-btn:hover { background: rgba(37, 99, 235, 0.05); transform: none; }
-        .filter-btn.active { background: rgba(37, 99, 235, 0.1); color: #2563eb; border-color: #2563eb; font-weight: 600; }
+        .filter-btn:hover { background: #f0f4ff; transform: translateY(-2px); }
+        .filter-btn.active { background: var(--primary); color: #fff; }
 
         /* ─── BOT BLOCK (мягкий glass) ─────────────────────────────────────── */
         .bot-section {
@@ -416,6 +407,9 @@
             margin: 0 10px; color: var(--text-muted);
             text-decoration: none; font-weight: 500;
             transition: var(--transition);
+        }
+        .social-icon svg, .social-icon [data-lucide] {
+            width: 1em; height: 1em; flex-shrink: 0;
         }
         .social-icon:hover { color: var(--primary); }
 
@@ -642,7 +636,7 @@
         <h1 style="text-align: center;">Избавься от языкового барьера!<br>Английский для тех, кто хочет<br>результат.</h1>
         <div class="price-plate">Запишись на вводное бесплатное занятие</div>
         <div class="cta-group">
-            <a href="#booking" class="main-cta">Записаться на урок <i data-lucide="arrow-right"></i></a>
+            <a href="#booking" class="main-cta">Записаться на урок</a>
         </div>
     </div>
 </header>
@@ -664,8 +658,8 @@
             </ul>
 
             <div class="cta-group" style="margin-top: 24px; justify-content: flex-start;">
-                <a href="#booking" class="main-cta">Записаться на занятие <i data-lucide="arrow-right"></i></a>
-                <a href="#booking" class="bot-cta"><i data-lucide="calendar"></i> Свободные окошки</a>
+                <a href="#booking" class="main-cta">Записаться на занятие</a>
+                <a href="#booking" class="bot-cta">Свободные окошки</a>
             </div>
         </div>
     </section>
@@ -719,7 +713,7 @@
     <section id="bot-block" class="bot-section">
         <h2>Бот как бонус! Делюсь бесплатно, можете начать заниматься уже сейчас</h2>
         <p>Чат-бот Tutoriossa для практики</p>
-        <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta">Пообщаться с ботом <i data-lucide="send"></i></a>
+        <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta">Пообщаться с ботом</a>
     </section>
 </div>
 
@@ -743,13 +737,13 @@
         <p class="section-sub">Полезные материалы об английском из нашего канала</p>
         <div class="posts-grid">
             <!-- BEGIN POSTS-MODERN -->
-<article class="post-card-modern"><a class="card-img-link" href="/posts/post-24.html"><img class="card-img" src="/assets/images/posts/post-24.jpg" alt="Dualingo в Китае выпустил бумажные салфетки, котор…" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>19.08.2026 10:38</span><h3 class="card-title">Dualingo в Китае выпустил бумажные салфетки, котор…</h3><p class="announce">Dualingo в Китае выпустил бумажные салфетки, которые помогают в изучении языка Они печатают слова на них, чтобы покупатель мог учить слова…</p><a class="btn-read" href="/posts/post-24.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
-<article class="post-card-modern"><a class="card-img-link card-img-placeholder" href="/posts/post-21.html" aria-label="Разница между Do и Make Если вы говорите об измене…"><i data-lucide="file-text"></i></a><div class="card-body"><span class="date-chip"><span class="dot"></span>25.06.2026 11:25</span><h3 class="card-title">Разница между Do и Make Если вы говорите об измене…</h3><p class="announce">📝 Разница между Do и Make Если вы говорите об изменении размера/формы / состояния чего-то, то используете « MAKE ». "Can you make the wood…</p><a class="btn-read" href="/posts/post-21.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
-<article class="post-card-modern"><a class="card-img-link" href="/posts/post-17.html"><img class="card-img" src="/assets/images/posts/post-17.jpg" alt="20 минут каждый день and you will tell the differe…" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>23.06.2026 17:35</span><h3 class="card-title">20 минут каждый день and you will tell the differe…</h3><p class="announce">20 минут каждый день and you will tell the difference !</p><a class="btn-read" href="/posts/post-17.html">Читать <i data-lucide="arrow-right"></i></a></div></article>
+<article class="post-card-modern"><a class="card-img-link" href="/posts/post-24.html"><img class="card-img" src="/assets/images/posts/post-24.jpg" alt="Dualingo в Китае выпустил бумажные салфетки, котор…" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>19.08.2026 10:38</span><h3 class="card-title">Dualingo в Китае выпустил бумажные салфетки, котор…</h3><p class="announce">Dualingo в Китае выпустил бумажные салфетки, которые помогают в изучении языка Они печатают слова на них, чтобы покупатель мог учить слова…</p><a class="btn-read" href="/posts/post-24.html">Читать</a></div></article>
+<article class="post-card-modern"><a class="card-img-link card-img-placeholder" href="/posts/post-21.html" aria-label="Разница между Do и Make Если вы говорите об измене…"><i data-lucide="file-text"></i></a><div class="card-body"><span class="date-chip"><span class="dot"></span>25.06.2026 11:25</span><h3 class="card-title">Разница между Do и Make Если вы говорите об измене…</h3><p class="announce">📝 Разница между Do и Make Если вы говорите об изменении размера/формы / состояния чего-то, то используете « MAKE ». "Can you make the wood…</p><a class="btn-read" href="/posts/post-21.html">Читать</a></div></article>
+<article class="post-card-modern"><a class="card-img-link" href="/posts/post-17.html"><img class="card-img" src="/assets/images/posts/post-17.jpg" alt="20 минут каждый день and you will tell the differe…" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>23.06.2026 17:35</span><h3 class="card-title">20 минут каждый день and you will tell the differe…</h3><p class="announce">20 минут каждый день and you will tell the difference !</p><a class="btn-read" href="/posts/post-17.html">Читать</a></div></article>
 <!-- END POSTS-MODERN -->
         </div>
         <div class="all-posts-link">
-            <a href="/blog.html" class="btn btn-ghost btn-md">Все публикации <i data-lucide="arrow-right"></i></a>
+            <a href="/blog.html" class="btn btn-ghost btn-md">Все публикации</a>
         </div>
     </div>
 </section>
