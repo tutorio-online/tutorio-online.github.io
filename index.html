@@ -148,21 +148,22 @@
         }
         .hero h1 span { color: var(--primary); }
 
-        .price-plate {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--card-solid);
-            color: var(--primary);
-            padding: 12px 22px;
-            border-radius: var(--radius-pill);
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin: 8px 0 32px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-soft);
+        .hero-hint {
+            display: block;
+            text-align: center;
+            color: var(--text);
+            font-size: clamp(1rem, 2.8vw, 1.2rem);
+            font-weight: 500;
+            margin: 16px 0 24px;
+            line-height: 1.4;
+            letter-spacing: -0.005em;
         }
-        .price-plate .dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--accent); display: inline-block;
+        .hero-hint .arrow {
+            display: block;
+            margin-top: 6px;
+            font-size: 1.2em;
+            color: var(--text-soft);
+            line-height: 1;
         }
 
         .cta-group {
@@ -804,7 +805,7 @@
             <span class="h1-lead">Избавьтесь от<br>языкового барьера!</span><br>
             <span class="h1-sub">Английский для тех,<br>кто хочет результат.</span>
         </h1>
-        <div class="price-plate">Запишись на вводное бесплатное занятие</div>
+        <div class="hero-hint">Запишитесь на вводное бесплатное занятие<span class="arrow" aria-hidden="true">↓</span></div>
         <div class="cta-group">
             <a href="#booking" class="main-cta">Записаться на урок</a>
         </div>
