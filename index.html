@@ -56,6 +56,15 @@
             --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
             --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* ═══ ADAPTIVE TYPE SCALE (clamp) ═══
+               Плавно масштабируется от 360px до 1200px+. */
+            --fs-h1: clamp(1.8rem, 4.5vw, 2.6rem);
+            --fs-h2: clamp(1.3rem, 3.5vw, 1.7rem);
+            --fs-h3: clamp(1.05rem, 2.5vw, 1.2rem);
+            --fs-h4: clamp(0.95rem, 2vw, 1.05rem);
+            --fs-lg: clamp(1.05rem, 1.3vw, 1.15rem);
+            --fs-sm: clamp(0.82rem, 0.95vw, 0.92rem);
         }
 
         * { box-sizing: border-box; }
@@ -79,7 +88,12 @@
             color: #1f2937;
             font-weight: 600;
             letter-spacing: -0.02em;
+            line-height: 1.2;
         }
+        h1 { font-size: var(--fs-h1); }
+        h2 { font-size: var(--fs-h2); }
+        h3 { font-size: var(--fs-h3); }
+        h4 { font-size: var(--fs-h4); }
 
         /* ─── HERO ─────────────────────────────────────────────────────────── */
         header {
@@ -187,7 +201,7 @@
             display: block;
         }
         .about-text { flex: 2; }
-        .about-text h2 { color: #1f2937; margin: 0 0 12px; font-size: 1.7rem; font-weight: 600; letter-spacing: -0.02em; }
+        .about-text h2 { color: #1f2937; margin: 0 0 12px; font-size: var(--fs-h2); font-weight: 600; letter-spacing: -0.02em; }
         .about-text p { color: var(--text-muted); margin: 0 0 12px; }
         .about-text ul { margin: 18px 0; padding-left: 0; list-style: none; }
         .about-text ul li { margin-bottom: 12px; color: var(--text); }
@@ -232,7 +246,7 @@
             margin-bottom: 18px;
             color: var(--primary);
         }
-        .feature-card h3 { color: #1f2937; margin: 0 0 10px; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+        .feature-card h3 { color: #1f2937; margin: 0 0 10px; font-size: var(--fs-h3); font-weight: 600; letter-spacing: -0.02em; }
         .feature-card p { color: var(--text-muted); margin: 0; font-size: 0.95rem; line-height: 1.55; }
 
         /* ─── BUTTONS (pill, hover lift + floating shadow) ──────────────────── */
@@ -293,7 +307,7 @@
         }
 
         /* Legacy aliases — keeps existing markup working */
-        .main-cta { display: inline-flex; align-items: center; gap: 8px;
+        .main-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px;
                     color: #fff; background: var(--accent); border: 1px solid var(--accent);
                     padding: 16px 32px; border-radius: var(--radius-pill);
                     font-weight: 600; font-size: 1.05rem; text-decoration: none;
@@ -301,7 +315,7 @@
         .main-cta:hover { background: #e63e1f; border-color: #e63e1f;
                           transform: translateY(-2px);
                           box-shadow: 0 12px 24px -8px rgba(255, 75, 43, 0.45); }
-        .bot-cta { display: inline-flex; align-items: center; gap: 8px;
+        .bot-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px;
                    color: var(--primary); background: transparent;
                    border: 1px solid var(--primary);
                    padding: 16px 32px; border-radius: var(--radius-pill);
@@ -322,7 +336,7 @@
             border: 1px solid var(--border);
             box-shadow: var(--shadow-soft);
         }
-        .booking-section h2 { font-size: 1.9rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; }
+        .booking-section h2 { font-size: var(--fs-h2); font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; }
 
         .slots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 30px; }
         .time-slot {
@@ -364,7 +378,7 @@
             border: 1px solid rgba(42, 82, 190, 0.15);
             box-shadow: var(--shadow-soft);
         }
-        .bot-section h2 { color: #1f2937; margin: 0 0 12px; font-size: 1.7rem; font-weight: 600; letter-spacing: -0.02em; }
+        .bot-section h2 { color: #1f2937; margin: 0 0 12px; font-size: var(--fs-h2); font-weight: 600; letter-spacing: -0.02em; }
         .bot-section p { color: var(--text-muted); font-size: 1.05rem; margin: 0 0 24px; }
 
         /* ─── MODAL ────────────────────────────────────────────────────────── */
@@ -432,7 +446,7 @@
             color: #1f2937;
             text-align: center;
             margin: 0 0 8px;
-            font-size: 1.9rem;
+            font-size: var(--fs-h2);
             font-weight: 600;
             letter-spacing: -0.02em;
         }
@@ -530,7 +544,7 @@
         }
 
         .post-card-modern .btn-read {
-            display: inline-flex; align-items: center; gap: 6px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
             align-self: flex-start;
             color: var(--primary);
             background: transparent;
@@ -578,7 +592,6 @@
             #latest-posts { padding: 32px 20px; }
         }
         @media (max-width: 480px) {
-            .hero h1 { font-size: 1.8rem; }
             .booking-section { padding: 32px 20px; }
         }
 
