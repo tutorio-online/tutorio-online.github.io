@@ -237,7 +237,7 @@
 
         /* ─── BUTTONS (pill, hover lift + floating shadow) ──────────────────── */
         .btn {
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             text-decoration: none;
             border-radius: var(--radius-pill);
             font-weight: 600;
@@ -246,6 +246,7 @@
             cursor: pointer;
             border: 1px solid transparent;
             white-space: nowrap;
+            text-align: center;
         }
         .btn-lg { padding: 16px 32px; font-size: 1.05rem; }
         .btn-md { padding: 12px 24px; font-size: 0.95rem; }
@@ -346,6 +347,7 @@
             border-radius: var(--radius-pill);
             cursor: pointer; font-weight: 600;
             white-space: nowrap;
+            display: inline-flex; align-items: center; justify-content: center;
             transition: var(--transition);
         }
         .filter-btn:hover { background: #f0f4ff; transform: translateY(-2px); }
@@ -609,14 +611,124 @@
         }
         .nav-links a:hover { color: var(--primary); }
         .nav-cta { padding: 10px 20px; font-size: 0.9rem; }
+
+        /* ═══ HAMBURGER MENU · index.html ═══ */
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 0;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        .menu-toggle:hover { border-color: var(--primary); }
+        .menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.2s ease;
+            transform-origin: center;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Боковая панель — выезжает СПРАВА */
+        .side-nav {
+            position: fixed;
+            top: 0;
+            right: -340px;
+            width: 320px;
+            max-width: 85vw;
+            height: 100vh;
+            background: var(--card-solid);
+            z-index: 1050;
+            padding: 80px 28px 32px;
+            box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.12);
+            transition: right 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .side-nav.active { right: 0; }
+        .side-nav h3 {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin: 24px 0 10px;
+            font-weight: 600;
+        }
+        .side-nav h3:first-of-type { margin-top: 0; }
+        .side-nav a.nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--border);
+            transition: color 0.2s ease, padding-left 0.2s ease;
+        }
+        .side-nav a.nav-item:hover {
+            color: var(--primary);
+            padding-left: 6px;
+        }
+        .side-nav .side-nav-btn {
+            margin-top: 28px;
+            width: 100%;
+        }
+
+        .side-nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.35);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            z-index: 1040;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .side-nav-overlay.active { opacity: 1; pointer-events: auto; }
+
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .nav-inner { padding: 12px 20px; }
+            .nav-inner { padding: 12px 20px; gap: 12px; }
             .nav-cta { padding: 9px 16px; font-size: 0.85rem; }
+            .menu-toggle { display: flex; }
         }
         </style>
 </head>
 <body>
+
+<!-- Hamburger Side Panel (≡ → выезжает справа) -->
+<nav class="side-nav" id="sideNav" aria-label="Полная навигация">
+    <h3>Навигация</h3>
+    <a class="nav-item" href="#top">Главная</a>
+    <a class="nav-item" href="#about">Обо мне</a>
+    <a class="nav-item" href="#booking">Форматы и цены</a>
+    <a class="nav-item" href="/blog.html">Блог</a>
+
+    <h3>Связаться</h3>
+    <a class="nav-item" href="https://t.me/tutorio_channel" target="_blank" rel="noopener">Telegram канал</a>
+    <a class="nav-item" href="https://t.me/tutoriossa_bot" target="_blank" rel="noopener">Telegram бот</a>
+
+    <a href="#booking" class="btn btn-primary btn-md side-nav-btn">Записаться на занятие</a>
+</nav>
+
+<div class="side-nav-overlay" id="sideNavOverlay"></div>
 
 <!-- Sticky Navbar -->
 <nav class="sticky-nav" aria-label="Главная навигация">
@@ -628,6 +740,11 @@
             <a href="/blog.html">Блог</a>
         </div>
         <a href="#booking" class="btn btn-primary btn-md nav-cta">Связаться</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 </nav>
 
@@ -979,6 +1096,33 @@ function filterSlots(filter, btn) {
 
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Hamburger Menu Toggle -->
+<script>
+(function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const sideNav = document.getElementById('sideNav');
+    const sideNavOverlay = document.getElementById('sideNavOverlay');
+    if (!menuToggle || !sideNav || !sideNavOverlay) return;
+
+    function close() {
+        menuToggle.classList.remove('active');
+        sideNav.classList.remove('active');
+        sideNavOverlay.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    menuToggle.addEventListener('click', () => {
+        const isOpen = sideNav.classList.toggle('active');
+        menuToggle.classList.toggle('active', isOpen);
+        sideNavOverlay.classList.toggle('active', isOpen);
+        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    sideNavOverlay.addEventListener('click', close);
+    // закрываем по клику на ссылку внутри панели
+    sideNav.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+})();
+</script>
 <script>
     function initLucide() {
         if (typeof lucide !== 'undefined' && lucide.createIcons) {
