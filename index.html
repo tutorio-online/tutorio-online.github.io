@@ -69,6 +69,7 @@
             color: var(--text);
             -webkit-font-smoothing: antialiased;
             scroll-behavior: smooth;
+            scroll-padding-top: 80px;  /* компенсация sticky-nav при переходе по якорям */
             letter-spacing: -0.005em;
         }
 
@@ -153,6 +154,13 @@
             gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
+        }
+        .cta-group > .main-cta,
+        .cta-group > .bot-cta,
+        .cta-group > .nav-cta {
+            flex: 1;
+            min-width: 200px;
+            max-width: 320px;
         }
 
         /* ─── ABOUT ────────────────────────────────────────────────────────── */
@@ -330,16 +338,27 @@
         }
         .time-slot strong { display: block; color: var(--primary); font-size: 1.05rem; }
 
-        .filter-container { margin-bottom: 28px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .filter-container { margin-bottom: 28px; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
         .filter-btn {
-            background: var(--card-solid); border: 1px solid var(--primary);
-            color: var(--primary); padding: 10px 22px;
-            border-radius: var(--radius-pill);
-            cursor: pointer; font-weight: 600;
-            transition: var(--transition);
+            background: transparent;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            max-width: 280px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 22px;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
-        .filter-btn:hover { background: #f0f4ff; transform: translateY(-2px); }
-        .filter-btn.active { background: var(--primary); color: #fff; }
+        .filter-btn:hover { background: rgba(37, 99, 235, 0.05); transform: none; }
+        .filter-btn.active { background: rgba(37, 99, 235, 0.1); color: #2563eb; border-color: #2563eb; font-weight: 600; }
 
         /* ─── BOT BLOCK (мягкий glass) ─────────────────────────────────────── */
         .bot-section {
