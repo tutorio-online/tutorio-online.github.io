@@ -344,16 +344,27 @@
         }
         .time-slot strong { display: block; color: var(--primary); font-size: 1.05rem; }
 
-        .filter-container { margin-bottom: 28px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .filter-container { margin-bottom: 28px; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
         .filter-btn {
-            background: var(--card-solid); border: 1px solid var(--primary);
-            color: var(--primary); padding: 10px 22px;
-            border-radius: var(--radius-pill);
-            cursor: pointer; font-weight: 600;
-            transition: var(--transition);
+            background: transparent;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            max-width: 280px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 22px;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
-        .filter-btn:hover { background: #f0f4ff; transform: translateY(-2px); }
-        .filter-btn.active { background: var(--primary); color: #fff; }
+        .filter-btn:hover { background: rgba(37, 99, 235, 0.05); transform: none; }
+        .filter-btn.active { background: rgba(37, 99, 235, 0.1); color: #2563eb; border-color: #2563eb; font-weight: 600; }
 
         /* ─── BOT BLOCK (мягкий glass) ─────────────────────────────────────── */
         .bot-section {
@@ -697,18 +708,15 @@
         }
         .reviews-cta { text-align: center; margin-top: 32px; }
         .reviews-cta .btn { display: inline-flex; gap: 8px; align-items: center; }
-                /* ═══ SHARP & MODERN (variant of uniform outline) ═══ */
+                /* ═══ UNIFORM TRANSPARENT OUTLINE BUTTONS ═══ */
         .btn, button, .button, a.cta-button,
         .main-cta, .bot-cta, .nav-cta,
-        .filter-btn, .book-btn, .confirm-btn, .btn-read,
+        .book-btn, .confirm-btn, .btn-read,
         .price-plate {
-            border-radius: 2px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            background: transparent;
-            border: 2px solid #2563eb;
-            color: #2563eb;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 2px solid #2563eb !important;
+            color: #2563eb !important;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -720,20 +728,21 @@
             padding: 0 22px;
             text-decoration: none;
             cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            box-shadow: none;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
         .btn:hover, button:hover, .button:hover, a.cta-button:hover,
         .main-cta:hover, .bot-cta:hover, .nav-cta:hover,
-        .filter-btn:hover, .book-btn:hover, .confirm-btn:hover, .btn-read:hover,
+        .book-btn:hover, .confirm-btn:hover, .btn-read:hover,
         .price-plate:hover {
-            background: rgba(37, 99, 235, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px -4px rgba(37, 99, 235, 0.25);
         }
         .filter-btn.active {
-            background: transparent;
-            color: #2563eb;
-            border-color: #2563eb;
-            border-width: 3px;
-            font-weight: 700;
+            background: rgba(37, 99, 235, 0.1) !important;
+            color: #2563eb !important;
+            border: 2px solid #2563eb !important;
+            font-weight: 600 !important;
         }
         /* Кнопки в одной группе — одинаковой ширины */
         .cta-group > .main-cta,
@@ -752,7 +761,7 @@
         @media (max-width: 480px) {
             .btn, button, .button, a.cta-button,
             .main-cta, .bot-cta, .nav-cta,
-            .filter-btn, .book-btn, .confirm-btn, .btn-read,
+            .book-btn, .confirm-btn, .btn-read,
             .price-plate {
                 width: 100%;
                 min-width: 0;
