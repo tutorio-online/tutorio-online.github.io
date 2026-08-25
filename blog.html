@@ -16,84 +16,343 @@
     <link rel="apple-touch-icon" sizes="120x120" href="https://tutorio.online/favicon-120.png">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://tutorio.online/sitemap.xml">
     <link rel="canonical" href="https://tutorio.online/blog.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-:root {
-    --primary-color: #2a52be;
-    --accent-color: #ff4b2b;
-    --text-dark: #333;
-    --bg-light: #f4f7f6;
-    --white: #ffffff;
-}
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-       margin: 0; padding: 0; line-height: 1.6;
-       color: var(--text-dark); background-color: var(--bg-light); }
-.container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
-header { background: var(--white); padding: 30px 20px; text-align: center;
-         box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 0 0 40px 40px; }
-header h1 { color: var(--primary-color); margin: 0 0 10px; font-size: 1.6em; }
-header p { color: #666; margin: 0; }
-.post-content { background: var(--white); margin: 40px auto; padding: 40px;
-                border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-                max-width: 800px; }
-.post-content h2 { color: var(--primary-color); margin-top: 0; }
-.post-content .meta { color: #888; font-size: 0.9em; margin-bottom: 25px;
-                      text-transform: uppercase; letter-spacing: 0.5px; }
-.post-content a { color: var(--primary-color); }
-.post-content img { max-width: 100%; height: auto; border-radius: 18px; margin: 15px 0; }
-.bot-cta { display: inline-block; color: var(--primary-color);
-           border: 2px solid var(--primary-color); padding: 14px 32px;
-           text-decoration: none; border-radius: 50px; font-weight: bold;
-           transition: 0.3s; }
-.bot-cta:hover { background: var(--primary-color); color: white; }
-.social-links { margin-top: 15px; text-align: center; }
-.social-icon { display: inline-block; margin: 0 10px; color: var(--primary-color);
-               text-decoration: none; font-weight: bold; }
-footer { text-align: center; padding: 40px 20px; color: #999; }
-.back-link { display: inline-block; margin-bottom: 20px;
-             color: var(--primary-color); text-decoration: none; font-weight: bold; }
-.post-card { background: var(--white); padding: 25px; border-radius: 20px;
-             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-             border-bottom: 4px solid var(--primary-color); margin-bottom: 20px;
-             transition: 0.3s; overflow: hidden; }
-.post-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
-.post-card .card-img-link { display: block; margin: -25px -25px 15px;
-                            overflow: hidden; border-radius: 20px 20px 0 0; }
-.post-card .card-img { display: block; width: 100%; height: 200px;
-                       object-fit: cover; transition: 0.4s; }
-.post-card:hover .card-img { transform: scale(1.04); }
-.post-card .meta { color: #888; font-size: 0.85em; text-transform: uppercase;
-                   margin-bottom: 10px; letter-spacing: 0.5px; }
-.post-card .announce { color: #444; margin-bottom: 15px; line-height: 1.5; }
-.post-card .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.post-photos { margin: 0 0 25px; }
-.post-photos img { display: block; width: 100%; height: auto;
-                   border-radius: 18px; margin: 0 0 10px; }
-.btn-primary { display: inline-block; background: var(--accent-color); color: white;
-               padding: 10px 22px; border-radius: 50px; text-decoration: none;
-               font-weight: bold; font-size: 0.95em; transition: 0.3s; }
-.btn-primary:hover { background: #e63e1f; transform: translateY(-2px); }
-.btn-secondary { display: inline-block; color: var(--primary-color);
-                 border: 2px solid var(--primary-color); padding: 8px 20px;
-                 border-radius: 50px; text-decoration: none; font-weight: bold;
-                 font-size: 0.95em; transition: 0.3s; }
-.btn-secondary:hover { background: var(--primary-color); color: white; }
-.blog-list h1 { text-align: center; color: var(--primary-color); margin: 40px 0; }
-#latest-posts h2 { color: var(--primary-color); text-align: center; margin: 40px 0 20px; }
-#latest-posts .all-posts-link { text-align: center; margin-top: 30px; }
-@media (max-width: 600px) {
-    .post-content { padding: 25px; margin: 20px; border-radius: 20px; }
-    header h1 { font-size: 1.3em; }
-}
-</style>
+        /* ═══════════════════════════════════════════════════════════════════
+           APPLE CLEAN MINIMAL · shared with index.html
+           ═══════════════════════════════════════════════════════════════════ */
+
+        :root {
+            --primary: #2a52be;
+            --primary-dark: #1e3a8a;
+            --primary-light: #3b66d1;
+            --accent: #ff4b2b;
+            --accent-soft: #fff1ed;
+            --text: #374151;
+            --text-muted: #6b7280;
+            --text-soft: #9ca3af;
+            --bg: #F8F9FA;
+            --card: rgba(255, 255, 255, 0.75);
+            --card-solid: #ffffff;
+            --border: rgba(229, 231, 235, 0.8);
+            --border-strong: rgba(209, 213, 219, 0.9);
+            --radius: 24px;
+            --radius-sm: 16px;
+            --radius-pill: 99px;
+            --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.03);
+            --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            --fs-h1: clamp(1.8rem, 4.5vw, 2.6rem);
+            --fs-h2: clamp(1.3rem, 3.5vw, 1.7rem);
+            --fs-h3: clamp(1.05rem, 2.5vw, 1.2rem);
+            --fs-h4: clamp(0.95rem, 2vw, 1.05rem);
+            --fs-lg: clamp(1.05rem, 1.3vw, 1.15rem);
+            --fs-sm: clamp(0.82rem, 0.95vw, 0.92rem);
+        }
+
+        * { box-sizing: border-box; }
+        html, body { background-color: var(--bg); }
+        body {
+            font-family: var(--font);
+            margin: 0; padding: 0; line-height: 1.6;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            letter-spacing: -0.005em;
+        }
+
+        .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+        h1, h2, h3, h4 {
+            color: #1f2937;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        h1 { font-size: var(--fs-h1); }
+        h2 { font-size: var(--fs-h2); }
+        h3 { font-size: var(--fs-h3); }
+        h4 { font-size: var(--fs-h4); }
+        .h1-lead { display: block; font-size: var(--fs-h1); }
+        .h1-sub  { display: block; font-size: clamp(1.6rem, 6.5vw, 2rem); color: var(--text); font-weight: 600; letter-spacing: -0.015em; margin-top: 0.45em; line-height: 1.2; }
+
+        /* ─── HEADER (hero, как на основной) ────────────────────────────────── */
+        header {
+            position: relative;
+            overflow: hidden;
+            background: #F8F9FA;
+            padding: 110px 24px 80px; text-align: center;
+            border-radius: 0 0 40px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: -180px; left: 50%;
+            transform: translateX(-50%);
+            width: 720px; height: 720px;
+            background: radial-gradient(circle at center,
+                        rgba(42, 82, 190, 0.18) 0%,
+                        rgba(59, 102, 209, 0.10) 35%,
+                        rgba(255, 75, 43, 0.06) 60%,
+                        rgba(248, 249, 250, 0) 75%);
+            filter: blur(60px);
+            -webkit-filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -120px; right: -120px;
+            width: 380px; height: 380px;
+            background: radial-gradient(circle at center,
+                        rgba(255, 75, 43, 0.16) 0%,
+                        rgba(255, 75, 43, 0) 70%);
+            filter: blur(60px);
+            -webkit-filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        header > * { position: relative; z-index: 1; }
+        header h1 { margin: 0 0 12px; }
+        .section-sub {
+            text-align: center;
+            color: var(--text-muted);
+            margin: 12px 0 8px;
+            font-size: clamp(1rem, 2.6vw, 1.2rem);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* ─── BACK LINK (на главную) ───────────────────────────────────────── */
+        .back-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 18px;
+            padding: 8px 18px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
+            background: var(--card-solid);
+            transition: var(--transition);
+        }
+        .back-link:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px -6px rgba(42, 82, 190, 0.4);
+        }
+
+        /* ─── POSTS GRID ───────────────────────────────────────────────────── */
+        #latest-posts { padding: 56px 20px 32px; }
+        #latest-posts .container { padding: 0; }
+
+        .post-card-modern {
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-card-modern:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-strong);
+        }
+
+        .post-card-modern .card-img-link {
+            display: block;
+            overflow: hidden;
+            border-radius: 16px 16px 0 0;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8efff 100%);
+        }
+        .post-card-modern .card-img-placeholder {
+            height: 200px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary);
+            opacity: 0.6;
+        }
+        .post-card-modern .card-img-placeholder svg,
+        .post-card-modern .card-img-placeholder [data-lucide] {
+            width: 48px; height: 48px;
+        }
+        .post-card-modern .card-img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            background-color: #F8F9FA;
+            border-radius: 16px 16px 0 0;
+            transition: transform 0.4s ease;
+        }
+        .post-card-modern:hover .card-img { transform: scale(1.04); }
+
+        .post-card-modern .card-body {
+            padding: 22px 22px 24px;
+            display: flex; flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .post-card-modern .date-chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            align-self: flex-start;
+            background: #f0f4ff;
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .post-card-modern .date-chip .dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .post-card-modern .card-title {
+            color: #1f2937;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 8px;
+            line-height: 1.35;
+            letter-spacing: -0.02em;
+        }
+        .post-card-modern .announce {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.55;
+            margin: 0 0 18px;
+            flex-grow: 1;
+        }
+
+        .post-card-modern .btn-read {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            align-self: flex-start;
+            color: var(--primary);
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 9px 18px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .post-card-modern .btn-read:hover {
+            background: var(--primary); color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px -6px rgba(42, 82, 190, 0.4);
+        }
+
+        /* Сетка карточек постов */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+        @media (max-width: 880px) { .posts-grid { grid-template-columns: 1fr; } }
+
+        .all-posts-link { text-align: center; margin-top: 32px; }
+        .all-posts-link .btn-ghost { display: inline-flex; gap: 8px; }
+
+        /* ─── FOOTER ────────────────────────────────────────────────────────── */
+        footer {
+            text-align: center;
+            padding: 48px 20px 56px;
+            color: var(--text-soft);
+            font-size: 0.9rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .social-icon {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 9px 18px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
+            background: var(--card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .social-icon:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        img { max-width: 100%; height: auto; object-fit: contain; }
+
+        @media (max-width: 768px) {
+            header { padding: 72px 24px 56px; }
+            #latest-posts { padding: 32px 20px; }
+        }
+    </style>
 </head>
 <body>
-<header><div class="container"><h1>Блог Tutorio</h1><p>Полезные материалы об английском из нашего Telegram-канала</p><p><a class="back-link" href="https://tutorio.online/index2.html">&larr; На главную</a></p></div></header><div class="container blog-list"><div class="post-card"><a class="card-img-link" href="/posts/post-24.html"><img class="card-img" src="/assets/images/posts/post-24.jpg" alt="Dualingo в Китае выпустил бумажные салфетки, котор…" loading="lazy"></a><div class="meta">19.08.2026 10:38</div><div class="announce">Dualingo в Китае выпустил бумажные салфетки, которые помогают в изучении языка Они печатают слова на них, чтобы покупатель мог учить слова…</div><div class="actions"><a class="btn-primary" href="/posts/post-24.html">Читать статью</a><a class="btn-secondary" href="https://t.me/tutorio_channel/24" target="_blank">Открыть в Telegram</a></div></div><div class="post-card"><div class="meta">25.06.2026 11:25</div><div class="announce">📝 Разница между Do и Make Если вы говорите об изменении размера/формы / состояния чего-то, то используете « MAKE ». "Can you make the wood…</div><div class="actions"><a class="btn-primary" href="/posts/post-21.html">Читать статью</a><a class="btn-secondary" href="https://t.me/tutorio_channel/21" target="_blank">Открыть в Telegram</a></div></div><div class="post-card"><a class="card-img-link" href="/posts/post-17.html"><img class="card-img" src="/assets/images/posts/post-17.jpg" alt="20 минут каждый день and you will tell the differe…" loading="lazy"></a><div class="meta">23.06.2026 17:35</div><div class="announce">20 минут каждый день and you will tell the difference !</div><div class="actions"><a class="btn-primary" href="/posts/post-17.html">Читать статью</a><a class="btn-secondary" href="https://t.me/tutorio_channel/17" target="_blank">Открыть в Telegram</a></div></div><div class="post-card"><div class="meta">22.06.2026 18:30</div><div class="announce">📚 5 phrases book lovers should know in English 1️⃣ I couldn’t put it down = The book was so interesting that I didn’t want to stop reading…</div><div class="actions"><a class="btn-primary" href="/posts/post-16.html">Читать статью</a><a class="btn-secondary" href="https://t.me/tutorio_channel/16" target="_blank">Открыть в Telegram</a></div></div><div class="post-card"><a class="card-img-link" href="/posts/post-14.html"><img class="card-img" src="/assets/images/posts/post-14.jpg" alt="I am bored or I am boring 🤝 Окончание -ED или -ING…" loading="lazy"></a><div class="meta">17.06.2026 10:10</div><div class="announce">🤝 I am bored or I am boring 🤝 Окончание -ED или -ING Прилагательное с окончание ing это всегда совершающий действие ▫️ Boring - скучный,…</div><div class="actions"><a class="btn-primary" href="/posts/post-14.html">Читать статью</a><a class="btn-secondary" href="https://t.me/tutorio_channel/14" target="_blank">Открыть в Telegram</a></div></div><div class="post-card"><a class="card-img-link" href="/posts/post-8.html"><img class="card-img" src="/assets/images/posts/post-8.jpg" alt="Зайдём с мемов! Кстати, "pointless" переводится од…" loading="lazy"></a><div class="meta">16.06.2026 12:11</div><div class="announce">Зайдём с мемов! Кстати, "pointless" переводится одновременно как «бессмысленный / бестолковый» Так и буквально « без кончиков/ без углов»…</div><div class="actions"><a class="btn-primary" href="/posts/post-8.html">Читать статью</a><a class="btn-secondary" href="https://t.me/tutorio_channel/8" target="_blank">Открыть в Telegram</a></div></div><div class="post-card"><a class="card-img-link" href="/posts/post-5.html"><img class="card-img" src="/assets/images/posts/post-5.jpg" alt="Mid of spring vibe 🌿 * Courage- храбрость/ смелост…" loading="lazy"></a><div class="meta">13.04.2026 13:14</div><div class="announce">Mid of spring vibe 🌿 * Courage- храбрость/ смелость * To keep room for smth - оставлять место для чего-то</div><div class="actions"><a class="btn-primary" href="/posts/post-5.html">Читать статью</a><a class="btn-secondary" href="https://t.me/tutorio_channel/5" target="_blank">Открыть в Telegram</a></div></div><div class="post-card"><a class="card-img-link" href="/posts/post-3.html"><img class="card-img" src="/assets/images/posts/post-3.jpg" alt="Let‘s get to know each other! Меня зовут Лиза 🖖 Об…" loading="lazy"></a><div class="meta">03.04.2026 11:26</div><div class="announce">Let‘s get to know each other! Меня зовут Лиза 🖖 Обучаю языку более 7 лет, специализируюсь на разговорном английском. Если вам нужно…</div><div class="actions"><a class="btn-primary" href="/posts/post-3.html">Читать статью</a><a class="btn-secondary" href="https://t.me/tutorio_channel/3" target="_blank">Открыть в Telegram</a></div></div></div>
-<footer>
-    <div class="social-links">
-        <a href="https://t.me/tutorio_channel" target="_blank" class="social-icon">Telegram</a>
-        <a href="https://instagram.com/lizza__vetta_?igsh=cHJibW85czQ4cnVp&utm_source=qr" target="_blank" class="social-icon">Instagram</a>
+<header>
+    <div class="container">
+        <h1>
+            <span class="h1-lead">Блог</span>
+            <span class="h1-sub">Про английский,<br>без воды.</span>
+        </h1>
+        <p class="section-sub">Публикации из нашего Telegram-канала — фразы, идиомы, грамматика и практические советы.</p>
+        <a class="back-link" href="/">&larr; На главную</a>
     </div>
-    <p style="margin-top: 20px;">&copy; 2026 Репетитор английского языка. Увидимся на уроке!</p>
+</header>
+
+<section id="latest-posts">
+    <div class="container">
+        <div class="posts-grid">
+            <article class="post-card-modern"><a class="card-img-link" href="/posts/post-24.html"><img class="card-img" src="/assets/images/posts/post-24.jpg" alt="Dualingo в Китае выпустил бумажные салфетки" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>19.08.2026</span><h3 class="card-title">Dualingo в Китае выпустил бумажные салфетки, которые помогают учить слова</h3><p class="announce">Dualingo в Китае выпустил бумажные салфетки, которые помогают в изучении языка. Они печатают слова на них, чтобы покупатель мог учить слова…</p><a class="btn-read" href="/posts/post-24.html">Читать</a></div></article>
+
+            <article class="post-card-modern"><a class="card-img-link card-img-placeholder" href="/posts/post-21.html" aria-label="Разница между Do и Make"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></a><div class="card-body"><span class="date-chip"><span class="dot"></span>25.06.2026</span><h3 class="card-title">Разница между Do и Make</h3><p class="announce">📝 Разница между Do и Make. Если вы говорите об изменении размера/формы/состояния чего-то, то используете «MAKE». "Can you make the wood…</p><a class="btn-read" href="/posts/post-21.html">Читать</a></div></article>
+
+            <article class="post-card-modern"><a class="card-img-link" href="/posts/post-17.html"><img class="card-img" src="/assets/images/posts/post-17.jpg" alt="20 минут каждый день" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>23.06.2026</span><h3 class="card-title">20 минут каждый день — and you will tell the difference</h3><p class="announce">20 минут каждый день and you will tell the difference!</p><a class="btn-read" href="/posts/post-17.html">Читать</a></div></article>
+
+            <article class="post-card-modern"><a class="card-img-link card-img-placeholder" href="/posts/post-16.html" aria-label="5 phrases book lovers should know in English"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></a><div class="card-body"><span class="date-chip"><span class="dot"></span>22.06.2026</span><h3 class="card-title">5 phrases book lovers should know in English</h3><p class="announce">📚 5 phrases book lovers should know in English. 1️⃣ I couldn't put it down = The book was so interesting that I didn't want to stop reading…</p><a class="btn-read" href="/posts/post-16.html">Читать</a></div></article>
+
+            <article class="post-card-modern"><a class="card-img-link" href="/posts/post-14.html"><img class="card-img" src="/assets/images/posts/post-14.jpg" alt="I am bored or I am boring" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>17.06.2026</span><h3 class="card-title">I am bored or I am boring — окончание -ED или -ING?</h3><p class="announce">🤝 I am bored or I am boring. Окончание -ED или -ING? Прилагательное с окончанием -ING — это всегда тот, кто совершает действие ▫️ Boring — скучный…</p><a class="btn-read" href="/posts/post-14.html">Читать</a></div></article>
+
+            <article class="post-card-modern"><a class="card-img-link" href="/posts/post-8.html"><img class="card-img" src="/assets/images/posts/post-8.jpg" alt="Pointless — бессмысленный" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>16.06.2026</span><h3 class="card-title">Зайдём с мемов! «Pointless» — бессмысленный</h3><p class="announce">Зайдём с мемов! Кстати, «pointless» переводится одновременно как «бессмысленный / бестолковый», так и буквально «без кончиков / без углов»…</p><a class="btn-read" href="/posts/post-8.html">Читать</a></div></article>
+
+            <article class="post-card-modern"><a class="card-img-link" href="/posts/post-5.html"><img class="card-img" src="/assets/images/posts/post-5.jpg" alt="Mid of spring vibe" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>13.04.2026</span><h3 class="card-title">Mid of spring vibe — весенние слова</h3><p class="announce">Mid of spring vibe 🌿 Courage — храбрость / смелость. To keep room for smth — оставлять место для чего-то.</p><a class="btn-read" href="/posts/post-5.html">Читать</a></div></article>
+
+            <article class="post-card-modern"><a class="card-img-link" href="/posts/post-3.html"><img class="card-img" src="/assets/images/posts/post-3.jpg" alt="Let's get to know each other" loading="lazy"></a><div class="card-body"><span class="date-chip"><span class="dot"></span>03.04.2026</span><h3 class="card-title">Let's get to know each other — знакомство с Лизой</h3><p class="announce">Let's get to know each other! Меня зовут Лиза 🖖 Обучаю языку более 7 лет, специализируюсь на разговорном английском. Если вам нужно…</p><a class="btn-read" href="/posts/post-3.html">Читать</a></div></article>
+        </div>
+
+        <div class="all-posts-link">
+            <a class="social-icon" href="https://t.me/tutorio_channel" target="_blank" rel="noopener">Все статьи в Telegram →</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p style="margin: 0;">&copy; 2026 Tutorio · Репетитор английского языка</p>
 </footer>
 </body>
 </html>
