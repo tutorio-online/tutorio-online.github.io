@@ -95,7 +95,7 @@
         h3 { font-size: var(--fs-h3); }
         h4 { font-size: var(--fs-h4); }
         .h1-lead { display: block; font-size: var(--fs-h1); }
-        .h1-sub  { display: block; font-size: clamp(0.95rem, 2.4vw, 1.25rem); color: var(--text-muted); font-weight: 500; letter-spacing: -0.01em; margin-top: 0.35em; }
+        .h1-sub  { display: block; font-size: clamp(1.1rem, 3.6vw, 1.55rem); color: var(--text-muted); font-weight: 500; letter-spacing: -0.01em; margin-top: 0.4em; line-height: 1.35; }
 
         /* ─── HERO ─────────────────────────────────────────────────────────── */
         header {
@@ -206,13 +206,29 @@
         .about-text h2 { color: #1f2937; margin: 0 0 12px; font-size: var(--fs-h2); font-weight: 600; letter-spacing: -0.02em; }
         .about-text p { color: var(--text-muted); margin: 0 0 12px; }
         .about-text ul { margin: 18px 0; padding-left: 0; list-style: none; }
-        .about-text ul li { margin-bottom: 12px; color: var(--text); }
+        .about-text ul li {
+            margin-bottom: 14px;
+            color: var(--text);
+            line-height: 1.55;
+            padding-left: 28px;
+            position: relative;
+            text-align: left;
+        }
+        .about-text ul li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0.55em;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
         @media (max-width: 768px) {
             .about-text ul li {
-                max-width: 240px;
-                margin-left: auto;
-                margin-right: auto;
+                max-width: none;
+                width: 100%;
             }
+            .about-section ul,
+            .about-section ul li { text-align: left; }
         }
         .about-text strong { color: #1f2937; }
 
