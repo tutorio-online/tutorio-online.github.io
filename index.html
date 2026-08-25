@@ -29,7 +29,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>        /* ═══════════════════════════════════════════════════════════════════
+    <style>
+        /* ═══════════════════════════════════════════════════════════════════
            APPLE CLEAN MINIMAL · TUTORIO index5
            Шрифт: Plus Jakarta Sans. Glassmorphism на всех карточках.
            ═══════════════════════════════════════════════════════════════════ */
@@ -600,76 +601,6 @@
             .nav-inner { padding: 12px 20px; }
             .nav-cta { padding: 9px 16px; font-size: 0.85rem; }
         }
-
-        /* ═══════════════════════════════════════════════════════════════════
-           REVIEWS · index5
-           ═══════════════════════════════════════════════════════════════════ */
-        #reviews { margin: 72px 0 40px; }
-        #reviews h2 {
-            text-align: center;
-            font-size: 1.9rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin: 0 0 8px;
-            color: #1f2937;
-        }
-        #reviews .section-sub {
-            text-align: center;
-            color: var(--text-muted);
-            margin: 0 0 32px;
-            font-size: 0.95rem;
-        }
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 22px;
-        }
-        .review-card {
-            background: var(--card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px 26px;
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition);
-            display: flex; flex-direction: column;
-        }
-        .review-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--border-strong);
-        }
-        .review-head {
-            display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
-        }
-        .review-avatar {
-            width: 48px; height: 48px; border-radius: 50%;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8efff 100%);
-            color: var(--primary);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 600; font-size: 1rem;
-            flex-shrink: 0;
-        }
-        .review-name { font-weight: 600; color: #1f2937; font-size: 1rem; line-height: 1.2; }
-        .review-goal {
-            display: inline-block;
-            background: #f0f4ff; color: var(--primary);
-            padding: 4px 10px; border-radius: var(--radius-pill);
-            font-size: 0.72rem; font-weight: 600;
-            letter-spacing: 0.02em; text-transform: uppercase;
-            margin-top: 6px;
-        }
-        .review-stars {
-            color: #f59e0b; font-size: 0.95rem;
-            letter-spacing: 1px; margin: 4px 0 12px;
-        }
-        .review-text {
-            color: var(--text-muted); font-size: 0.95rem; line-height: 1.55;
-            margin: 0; flex-grow: 1;
-        }
-        .reviews-cta { text-align: center; margin-top: 32px; }
-        .reviews-cta .btn { display: inline-flex; gap: 8px; align-items: center; }
         </style>
 </head>
 <body>
@@ -681,7 +612,6 @@
         <div class="nav-links">
             <a href="#about">Обо мне</a>
             <a href="#booking">Форматы</a>
-            <a href="#reviews">Отзывы</a>
             <a href="/blog.html">Блог</a>
         </div>
         <a href="#booking" class="btn btn-primary btn-md nav-cta">Связаться</a>
@@ -744,28 +674,34 @@
     </div>
 
     <section id="booking" class="booking-section">
-    <h2>Записаться на занятие</h2>
-    
-    <p style="max-width: 700px; margin: 0 auto 25px; color: #444; font-size: 1.15em; line-height: 1.6;">
-        Группы от 3 до 5 человек — 10 евро<br>
-        Индивидуальные занятия — 35 евро<br>
-        <strong>Выберите подходящий формат ниже</strong>
-    </p>
+        <h2>Записаться на занятие</h2>
+        
+        <p style="max-width: 700px; margin: 0 auto 25px; color: #444; font-size: 1.15em; line-height: 1.6;">
+            Группы от 3 до 5 человек — 10 евро<br>
+            Индивидуальные занятия — 35 евро<br>
+            <strong>Выберите подходящий формат ниже</strong>
+        </p>
 
-    <div class="filter-container">
-        <button class="filter-btn active" onclick="filterSlots('all', this)">Все</button>
-        <button class="filter-btn" onclick="filterSlots('individual', this)">Индивидуально</button>
-        <button class="filter-btn" onclick="filterSlots('group', this)">Группы</button>
-    </div>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterSlots('all', this)">Все</button>
+            <button class="filter-btn" onclick="filterSlots('individual', this)">Индивидуально</button>
+            <button class="filter-btn" onclick="filterSlots('group', this)">Группы</button>
+        </div>
 
-    <div id="filter-annotation" style="max-width: 600px; margin: 0 auto 30px; color: #666; font-size: 0.95em; font-style: italic; line-height: 1.5;">
-        Выбирайте удобный формат: интенсивное погружение тет-а-тет или динамичная практика в мини-группах.
-    </div>
+        <div id="filter-annotation" style="max-width: 600px; margin: 0 auto 30px; color: #666; font-size: 0.95em; font-style: italic; line-height: 1.5;">
+            Выбирайте удобный формат: интенсивное погружение тет-а-тет или динамичная практика в мини-группах.
+        </div>
 
-    <div id="time-slots" class="slots-grid">
-        <p>Загрузка актуального расписания...</p>
-    </div>
-</section>
+        <div id="time-slots" class="slots-grid">
+            <p>Загрузка актуального расписания...</p>
+        </div>
+    </section>
+
+    <section id="bot-block" class="bot-section">
+        <h2>Бот как бонус! Делюсь бесплатно, можете начать заниматься уже сейчас</h2>
+        <p>Чат-бот Tutoriossa для практики</p>
+        <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta">Пообщаться с ботом <i data-lucide="send"></i></a>
+    </section>
 </div>
 
 <div id="booking-modal" class="modal">
@@ -782,64 +718,6 @@
     </div>
 </div>
 
-<section id="reviews">
-    <div class="container">
-        <h2>Отзывы учеников</h2>
-        <p class="section-sub">Что говорят те, кто уже занимается</p>
-        <div class="reviews-grid">
-            <article class="review-card">
-                <div class="review-head">
-                    <div class="review-avatar">АК</div>
-                    <div>
-                        <div class="review-name">Анна К.</div>
-                        <span class="review-goal">Подготовка к IELTS</span>
-                    </div>
-                </div>
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">За 4 месяца подтянула speaking с 5.5 до 7.0. Лизавета объясняет структуру, а не зубрит шаблоны. На уроках много говорим — это и есть ключ к баллу.</p>
-            </article>
-            <article class="review-card">
-                <div class="review-head">
-                    <div class="review-avatar">МД</div>
-                    <div>
-                        <div class="review-name">Михаил Д.</div>
-                        <span class="review-goal">Разговорный английский</span>
-                    </div>
-                </div>
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">Нужно было прокачать английский для релокации. За 2 месяца перестал бояться звонить в поддержку и читать письма. Живые темы — про работу и путешествия — заходят сильно лучше учебника.</p>
-            </article>
-            <article class="review-card">
-                <div class="review-head">
-                    <div class="review-avatar">ЕС</div>
-                    <div>
-                        <div class="review-name">Елена С.</div>
-                        <span class="review-goal">Бизнес-английский</span>
-                    </div>
-                </div>
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">Беру групповые занятия в мини-группе. Удобно, что много говорим, но и грамматику разбираем на реальных кейсах. Вижу прогресс уже после первого месяца.</p>
-            </article>
-            <article class="review-card">
-                <div class="review-head">
-                    <div class="review-avatar">ИП</div>
-                    <div>
-                        <div class="review-name">Игорь П.</div>
-                        <span class="review-goal">Для собеседований</span>
-                    </div>
-                </div>
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">Готовились к интервью в международную компанию. Прошли по шагам: рассказ о себе, поведенческие вопросы, кейсы. Получил оффер через 3 недели.</p>
-            </article>
-        </div>
-        <div class="reviews-cta">
-            <a href="https://t.me/tutorio_channel" target="_blank" rel="noopener" class="btn btn-ghost btn-md">
-                Смотреть все отзывы в Telegram <i data-lucide="arrow-right"></i>
-            </a>
-        </div>
-    </div>
-</section>
-
 <section id="latest-posts">
     <div class="container">
         <h2>Свежие публикации из Telegram</h2>
@@ -855,12 +733,6 @@
             <a href="/blog.html" class="btn btn-ghost btn-md">Все публикации <i data-lucide="arrow-right"></i></a>
         </div>
     </div>
-</section>
-
-<section id="bot-block" class="bot-section">
-    <h2>Бот как бонус! Делюсь бесплатно, можете начать заниматься уже сейчас</h2>
-    <p>Чат-бот Tutoriossa для практики</p>
-    <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta">Пообщаться с ботом <i data-lucide="send"></i></a>
 </section>
 
 <footer>
