@@ -168,6 +168,19 @@
             justify-content: center;
             flex-wrap: wrap;
         }
+        @media (max-width: 480px) {
+            .cta-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .cta-group > .main-cta,
+            .cta-group > .bot-cta,
+            .cta-group > .nav-cta {
+                flex: none;
+                width: 100%;
+                max-width: none;
+            }
+        }
 
         /* ─── ABOUT ────────────────────────────────────────────────────────── */
         .about-section {
@@ -729,6 +742,7 @@
             text-decoration: none;
             cursor: pointer;
             box-shadow: none;
+            white-space: nowrap;
             transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
         .btn:hover, button:hover, .button:hover, a.cta-button:hover,
