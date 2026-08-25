@@ -329,16 +329,27 @@
         }
         .time-slot strong { display: block; color: var(--primary); font-size: 1.05rem; }
 
-        .filter-container { margin-bottom: 28px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .filter-container { margin-bottom: 28px; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
         .filter-btn {
-            background: var(--card-solid); border: 1px solid var(--primary);
-            color: var(--primary); padding: 10px 22px;
-            border-radius: var(--radius-pill);
-            cursor: pointer; font-weight: 600;
-            transition: var(--transition);
+            background: transparent;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            max-width: 280px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 22px;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
-        .filter-btn:hover { background: #f0f4ff; transform: translateY(-2px); }
-        .filter-btn.active { background: var(--primary); color: #fff; }
+        .filter-btn:hover { background: rgba(37, 99, 235, 0.05); transform: none; }
+        .filter-btn.active { background: rgba(37, 99, 235, 0.1); color: #2563eb; border-color: #2563eb; font-weight: 600; }
 
         /* ─── BOT BLOCK (мягкий glass) ─────────────────────────────────────── */
         .bot-section {
@@ -687,7 +698,7 @@
         .btn, button, .button, a.cta-button,
         .btn-primary, .btn-accent, .btn-outline, .btn-ghost, .btn-md, .btn-lg,
         .main-cta, .bot-cta, .nav-cta,
-        .filter-btn, .book-btn, .confirm-btn, .btn-read,
+        .book-btn, .confirm-btn, .btn-read,
         .price-plate,
         .reviews-cta a {
             border-radius: 8px;
@@ -710,7 +721,7 @@
         }
         .btn:hover, button:hover, .button:hover, a.cta-button:hover,
         .main-cta:hover, .bot-cta:hover, .nav-cta:hover,
-        .filter-btn:hover, .book-btn:hover, .confirm-btn:hover, .btn-read:hover,
+        .book-btn:hover, .confirm-btn:hover, .btn-read:hover,
         .price-plate:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px -4px rgba(37, 99, 235, 0.25);
@@ -730,11 +741,10 @@
             margin-right: auto;
         }
         .filter-btn.active {
-            background: transparent;
-            color: #2563eb;
-            border-color: #2563eb;
-            border-width: 3px;
-            font-weight: 700;
+            background: rgba(37, 99, 235, 0.1) !important;
+            color: #2563eb !important;
+            border: 2px solid #2563eb !important;
+            font-weight: 600 !important;
         }
         @media (max-width: 480px) {
             .btn, button, .button, a.cta-button,
@@ -824,11 +834,15 @@
     </div>
 
     <section id="booking" class="booking-section">
-    <h2>Записаться на занятие</h2>
-    
-    <p style="max-width: 700px; margin: 0 auto 25px; color: #444; font-size: 1.15em; line-height: 1.6;">
-        Группы от 3 до 5 человек — 10 евро<br>
-        Индивидуальные занятия — 35 евро<br>
+    <h2 style="white-space: nowrap; font-size: 1.5rem;">Записаться на занятие</h2>
+
+    <p style="max-width: 700px; margin: 0 auto 8px; color: #444; font-size: 0.95rem; line-height: 1.6; white-space: nowrap;">
+        Группы от 3 до 5 человек — 10 евро
+    </p>
+    <p style="max-width: 700px; margin: 0 auto 8px; color: #444; font-size: 0.95rem; line-height: 1.6; white-space: nowrap;">
+        Индивидуальные занятия — 35 евро
+    </p>
+    <p style="max-width: 700px; margin: 0 auto 25px; color: #444; font-size: 0.95rem; line-height: 1.6; white-space: nowrap;">
         <strong>Выберите подходящий формат ниже</strong>
     </p>
 
