@@ -5,9 +5,9 @@ Source: https://t.me/s/tutorio_channel
 Outputs:
   - /posts/post-<ID>.html — individual SEO-friendly page per post
   - /blog.html — index of all posts
+  - /index.html — production main page (served by GitHub Pages at /);
+    3 latest post cards are injected into the #latest-posts section
   - /sitemap.xml — updated sitemap
-  - /index2.html — injects 3 latest post cards into #latest-posts section
-  - /index3.html — injects 3 latest post cards (modern style) into #latest-posts section
 
 Idempotent: re-running with no new posts is a no-op for post files (only
 updates lastmod when content actually changes).
@@ -39,12 +39,9 @@ POSTS_DIR = REPO_ROOT / "posts"
 IMAGES_DIR = REPO_ROOT / "assets" / "images" / "posts"
 BLOG_FILE = REPO_ROOT / "blog.html"
 SITEMAP_FILE = REPO_ROOT / "sitemap.xml"
-INDEX2_FILE = REPO_ROOT / "index2.html"
-INDEX3_FILE = REPO_ROOT / "index3.html"
-INDEX5_FILE = REPO_ROOT / "index5.html"
-INDEX6_FILE = REPO_ROOT / "index6.html"
-# Production main page (served by GitHub Pages at /). Same modern card markers
-# as index3/index5/index6, so update_index_modern() handles it identically.
+# Production main page (served by GitHub Pages at /). The 3 latest post cards
+# are injected between <!-- BEGIN POSTS-MODERN --> / <!-- END POSTS-MODERN -->
+# markers in this single file.
 INDEX_FILE = REPO_ROOT / "index.html"
 
 # Regex to extract URLs from Telegram's `background-image:url('...')` style
@@ -460,7 +457,7 @@ def render_blog_page(posts: list[Post], local_exists: dict[str, bool]) -> str:
         "<header><div class=\"container\">"
         "<h1>Блог Tutorio</h1>"
         "<p>Полезные материалы об английском из нашего Telegram-канала</p>"
-        f"<p><a class=\"back-link\" href=\"{SITE_ORIGIN}/index2.html\">&larr; На главную</a></p>"
+        f"<p><a class=\"back-link\" href=\"{SITE_ORIGIN}/\">&larr; На главную</a></p>"
         "</div></header>"
         "<div class=\"container blog-list\">"
         + "".join(cards) +
@@ -470,7 +467,7 @@ def render_blog_page(posts: list[Post], local_exists: dict[str, bool]) -> str:
 
 
 def _render_card(p: Post, local_exists: dict[str, bool], full_card: bool) -> str:
-    """Render a single post card. Used in blog.html and index2.html."""
+    """Render a single post card. Used in blog.html."""
     announce = p.announce.replace("&", "&amp;").replace("<", "&lt;")
     img_html = ""
     if p.image_url:
@@ -498,12 +495,8 @@ def _render_card(p: Post, local_exists: dict[str, bool], full_card: bool) -> str
     )
 
 
-def render_post_card(p: Post, local_exists: dict[str, bool]) -> str:
-    return _render_card(p, local_exists, full_card=False)
-
-
 def render_modern_post_card(p: Post, local_exists: dict[str, bool]) -> str:
-    """Modern-style card for index3.html.
+    """Modern-style card for the main page (index.html).
 
     Layout: rounded image on top (border-radius 12px), then a small date chip,
     a short title, the announcement and a 'Read' link button with arrow icon.
@@ -550,8 +543,7 @@ def render_modern_post_card(p: Post, local_exists: dict[str, bool]) -> str:
 
 def update_index_modern(target_file: Path, posts: list[Post], local_exists: dict[str, bool]) -> bool:
     """Replace content between <!-- BEGIN POSTS-MODERN --> and <!-- END POSTS-MODERN -->
-    in target_file (e.g. index3.html, index5.html) with 3 modern-style cards
-    (newest posts).
+    in target_file (the main index.html) with 3 modern-style cards (newest posts).
 
     Returns True if the file was modified.
     """
@@ -586,55 +578,6 @@ def update_index_modern(target_file: Path, posts: list[Post], local_exists: dict
     return True
 
 
-# Backward-compatible alias
-def update_index3(posts: list[Post], local_exists: dict[str, bool]) -> bool:
-    return update_index_modern(INDEX3_FILE, posts, local_exists)
-
-
-def update_index2(posts: list[Post], local_exists: dict[str, bool]) -> bool:
-    """Replace content between <!-- BEGIN POSTS --> and <!-- END POSTS --> in index2.html.
-
-    Posts are expected to already be sorted newest-first. We render the top 3.
-    Returns True if the file was modified.
-    """
-    if not INDEX2_FILE.exists():
-        print(f"[skip] {INDEX2_FILE} not found", file=sys.stderr)
-        return False
-
-    text = INDEX2_FILE.read_text(encoding="utf-8")
-    begin = "<!-- BEGIN POSTS -->"
-    end = "<!-- END POSTS -->"
-    if begin not in text or end not in text:
-        print(
-            f"[warn] markers not found in {INDEX2_FILE.name}: "
-            "expected <!-- BEGIN POSTS --> ... <!-- END POSTS -->",
-            file=sys.stderr,
-        )
-        return False
-
-    latest = posts[:3]
-    if not latest:
-        print("[warn] no posts to inject", file=sys.stderr)
-        return False
-    inner = "\n".join(render_post_card(p, local_exists) for p in latest)
-    all_link = (
-        "\n<div class=\"all-posts-link\">"
-        f"<a class=\"btn-secondary\" href=\"/blog.html\">Все публикации &rarr;</a>"
-        "</div>\n"
-    )
-    new_block = f"{begin}\n{inner}{all_link}{end}"
-
-    pattern = re.compile(re.escape(begin) + r".*?" + re.escape(end), re.DOTALL)
-    new_text, n = pattern.subn(new_block, text, count=1)
-    if n == 0:
-        return False
-    if new_text == text:
-        return False
-
-    INDEX2_FILE.write_text(new_text, encoding="utf-8")
-    return True
-
-
 # ─── Sitemap ─────────────────────────────────────────────────────────────────
 
 
@@ -656,11 +599,6 @@ def update_sitemap(posts: list[Post]) -> bool:
         )
 
     lines.append(url_entry(f"{SITE_ORIGIN}/", "1.0", "weekly"))
-    lines.append(url_entry(f"{SITE_ORIGIN}/index1.html", "0.9", "weekly"))
-    lines.append(url_entry(f"{SITE_ORIGIN}/index2.html", "0.9", "weekly"))
-    lines.append(url_entry(f"{SITE_ORIGIN}/index3.html", "0.9", "weekly"))
-    lines.append(url_entry(f"{SITE_ORIGIN}/index5.html", "0.9", "weekly"))
-    lines.append(url_entry(f"{SITE_ORIGIN}/index6.html", "0.9", "weekly"))
     lines.append(url_entry(f"{SITE_ORIGIN}/blog.html", "0.9", "daily"))
     for p in posts:
         lines.append(url_entry(f"{SITE_ORIGIN}/posts/post-{p.pid}.html", "0.7", "monthly"))
@@ -728,20 +666,12 @@ def main() -> int:
         BLOG_FILE.write_text(blog_html, encoding="utf-8")
         blog_changed = True
 
-    index2_changed = update_index2(posts, local_exists)
-    index3_changed = update_index_modern(INDEX3_FILE, posts, local_exists)
-    index5_changed = update_index_modern(INDEX5_FILE, posts, local_exists)
-    index6_changed = update_index_modern(INDEX6_FILE, posts, local_exists)
     index_changed = update_index_modern(INDEX_FILE, posts, local_exists)
     sitemap_changed = update_sitemap(posts)
 
     print(
         f"[summary] posts_written={len(written_posts)} "
         f"blog_changed={blog_changed} "
-        f"index2_changed={index2_changed} "
-        f"index3_changed={index3_changed} "
-        f"index5_changed={index5_changed} "
-        f"index6_changed={index6_changed} "
         f"index_changed={index_changed} "
         f"sitemap_changed={sitemap_changed}"
     )
