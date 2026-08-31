@@ -409,16 +409,16 @@
         /* ─── BOT BLOCK (мягкий glass) ─────────────────────────────────────── */
         .bot-section {
             background: linear-gradient(135deg, #f0f4ff 0%, #e8efff 100%);
-            padding: 56px 32px;
-            margin: 64px auto;
-            max-width: 920px;
+            padding: 40px 32px;
+            margin: 48px auto;
+            max-width: 760px;
             border-radius: var(--radius);
             text-align: center;
             border: 1px solid rgba(42, 82, 190, 0.15);
             box-shadow: var(--shadow-soft);
         }
-        .bot-section h2 { color: #1f2937; margin: 0 0 12px; font-size: var(--fs-h2); font-weight: 600; letter-spacing: -0.02em; }
-        .bot-section p { color: var(--text-muted); font-size: 1.05rem; margin: 0 0 24px; }
+        .bot-section h2 { color: #1f2937; margin: 0 0 6px; font-size: var(--fs-h2); font-weight: 600; letter-spacing: -0.02em; }
+        .bot-section p { color: var(--text-muted); font-size: 1.05rem; margin: 0 0 20px; line-height: 1.45; }
 
         /* ─── MODAL ────────────────────────────────────────────────────────── */
         .modal {
@@ -632,6 +632,9 @@
         }
         @media (max-width: 480px) {
             .booking-section { padding: 32px 20px; }
+            .bot-section { padding: 28px 20px; margin: 32px 16px; }
+            .bot-section h2 { font-size: 1.2rem; }
+            .bot-section p { font-size: 0.95rem; margin: 0 0 16px; }
         }
 
         /* ═══════════════════════════════════════════════════════════════════
@@ -882,8 +885,8 @@
     </section>
 
     <section id="bot-block" class="bot-section">
-        <h2>Бот как бонус! Делюсь бесплатно, можете начать заниматься уже сейчас</h2>
-        <p>Чат-бот Tutoriossa для практики</p>
+        <h2>Бот как бонус!</h2>
+        <p>Делюсь бесплатно, можете начать заниматься уже сейчас.</p>
         <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta">Пообщаться с ботом</a>
     </section>
 </div>
