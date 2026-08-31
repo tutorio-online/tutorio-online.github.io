@@ -58,8 +58,9 @@ footer { text-align: center; padding: 40px 20px; color: #999; }
 .post-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
 .post-card .card-img-link { display: block; margin: -25px -25px 15px;
                             overflow: hidden; border-radius: 20px 20px 0 0; }
-.post-card .card-img { display: block; width: 100%; height: 200px;
-                       object-fit: cover; transition: 0.4s; }
+.post-card .card-img { display: block; width: 100%; height: auto;
+                       max-height: 480px; object-fit: cover;
+                       object-position: center; transition: 0.4s; }
 .post-card:hover .card-img { transform: scale(1.04); }
 .post-card .meta { color: #888; font-size: 0.85em; text-transform: uppercase;
                    margin-bottom: 10px; letter-spacing: 0.5px; }
