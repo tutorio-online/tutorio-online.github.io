@@ -39,8 +39,8 @@ jobs:
           git config user.name "$BOT_NAME"
           git config user.email "$BOT_EMAIL"
 
-          # Stage everything that may have changed (posts, blog.html, sitemap.xml, index2.html, index3.html, downloaded images)
-          git add posts/ blog.html sitemap.xml index2.html index3.html assets/ || true
+          # Stage everything that may have changed (posts, blog.html, sitemap.xml, index.html (main page), index2.html, index3.html, downloaded images)
+          git add posts/ blog.html sitemap.xml index.html index2.html index3.html assets/ || true
 
           # Bail out cleanly if no changes
           if git diff --cached --quiet; then

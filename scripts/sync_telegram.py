@@ -43,6 +43,9 @@ INDEX2_FILE = REPO_ROOT / "index2.html"
 INDEX3_FILE = REPO_ROOT / "index3.html"
 INDEX5_FILE = REPO_ROOT / "index5.html"
 INDEX6_FILE = REPO_ROOT / "index6.html"
+# Production main page (served by GitHub Pages at /). Same modern card markers
+# as index3/index5/index6, so update_index_modern() handles it identically.
+INDEX_FILE = REPO_ROOT / "index.html"
 
 # Regex to extract URLs from Telegram's `background-image:url('...')` style
 BG_IMG_RE = re.compile(r"background-image\s*:\s*url\(['\"]?([^'\")]+)['\"]?\)")
@@ -729,6 +732,7 @@ def main() -> int:
     index3_changed = update_index_modern(INDEX3_FILE, posts, local_exists)
     index5_changed = update_index_modern(INDEX5_FILE, posts, local_exists)
     index6_changed = update_index_modern(INDEX6_FILE, posts, local_exists)
+    index_changed = update_index_modern(INDEX_FILE, posts, local_exists)
     sitemap_changed = update_sitemap(posts)
 
     print(
@@ -738,6 +742,7 @@ def main() -> int:
         f"index3_changed={index3_changed} "
         f"index5_changed={index5_changed} "
         f"index6_changed={index6_changed} "
+        f"index_changed={index_changed} "
         f"sitemap_changed={sitemap_changed}"
     )
 
