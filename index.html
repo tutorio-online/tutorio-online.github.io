@@ -803,7 +803,7 @@
     <a class="nav-item" href="https://t.me/tutorio_channel" target="_blank" rel="noopener">Telegram канал</a>
     <a class="nav-item" href="https://t.me/tutoriossa_bot" target="_blank" rel="noopener">Telegram бот</a>
 
-    <a href="#booking" class="main-cta side-nav-btn">Записаться на занятие</a>
+    <a href="#booking" class="main-cta cta-lead side-nav-btn">Записаться на занятие</a>
 </nav>
 
 <div class="side-nav-overlay" id="sideNavOverlay"></div>
@@ -833,7 +833,7 @@
         </h1>
         <div class="hero-hint">Запишитесь на вводное бесплатное занятие<span class="arrow" aria-hidden="true">↓</span></div>
         <div class="cta-group">
-            <a href="#booking" class="main-cta">Записаться на занятие</a>
+            <a href="#booking" class="main-cta cta-lead">Записаться на занятие</a>
         </div>
     </div>
 </header>
@@ -855,8 +855,8 @@
             </ul>
 
             <div class="cta-group" style="margin-top: 24px; justify-content: flex-start;">
-                <a href="#booking" class="main-cta">Записаться на занятие</a>
-                <a href="#booking" class="bot-cta">Свободные окошки</a>
+                <a href="#booking" class="main-cta cta-lead">Записаться на занятие</a>
+                <a href="#booking" class="bot-cta cta-lead">Свободные окошки</a>
             </div>
         </div>
     </section>
@@ -911,7 +911,7 @@
         <h2>Бот как бонус!</h2>
         <p>Делюсь бесплатно, можете начать заниматься уже сейчас.</p>
         <p>Чат-бот Tutoriossa для практики</p>
-        <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta">Пообщаться с ботом</a>
+        <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta cta-telegram">Пообщаться с ботом</a>
     </section>
 </div>
 
@@ -924,7 +924,7 @@
         <p id="selected-time-info" style="font-weight: bold; color: var(--primary-color); font-size: 1.2em;"></p>
         <input type="text" id="user-name" placeholder="Как вас зовут?">
         <input type="tel" id="user-contact" placeholder="Ваш Telegram или телефон">
-        <button id="submit-btn" onclick="confirmBooking()" class="confirm-btn">Подтвердить запись</button>
+        <button id="submit-btn" onclick="confirmBooking()" class="confirm-btn cta-submit">Подтвердить запись</button>
         <button onclick="closeModal()" style="background:none; border:none; color:#bbb; margin-top:20px; cursor:pointer;">Отмена</button>
     </div>
 </div>
@@ -1020,7 +1020,7 @@ function renderSlots(slots) {
                 <div class="slot-date">${slot.date}</div>
                 <div class="slot-time">${slot.time}</div>
                 <div class="occupancy-tag ${tagClass}">${tagText}</div>
-                <button class="book-btn" onclick='openModal(${JSON.stringify(slot)})' style="width: 100%;">Записаться</button>
+                <button class="book-btn cta-book" onclick='openModal(${JSON.stringify(slot)})' style="width: 100%;">Записаться</button>
             `;
             grid.appendChild(div);
         });
