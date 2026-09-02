@@ -69,6 +69,13 @@ SKIP_SUBSTR = (
 HEAD_COMMON = """<!DOCTYPE html>
 <html lang=\"ru\">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
+    new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    }})(window,document,'script','dataLayer','GTM-PKGPW657');</script>
+    <!-- End Google Tag Manager -->
     <meta charset=\"UTF-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
     {seo_head}
@@ -80,12 +87,16 @@ HEAD_COMMON = """<!DOCTYPE html>
     <style>{css}</style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-PKGPW657\"
+    height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 """
 
 BODY_TAIL = """
 <footer>
     <div class=\"social-links\">
-        <a href=\"https://t.me/tutorio_channel\" target=\"_blank\" class=\"social-icon\">Telegram</a>
+        <a href=\"https://t.me/tutorio_channel\" target=\"_blank\" class=\"social-icon cta-telegram\">Telegram</a>
         <a href=\"https://instagram.com/lizza__vetta_?igsh=cHJibW85czQ4cnVp&utm_source=qr\" target=\"_blank\" class=\"social-icon\">Instagram</a>
     </div>
     <p style=\"margin-top: 20px;\">&copy; 2026 Репетитор английского языка. Увидимся на уроке!</p>
@@ -399,6 +410,29 @@ def seo_head(post: Post) -> str:
     )
 
 
+def _tag_telegram_links(html: str) -> str:
+    """Add class='cta-telegram' to every <a> tag whose href points to
+    t.me / telegram.me. Regex-based to avoid the <html><body> wrapper
+    that BeautifulSoup would otherwise inject around fragments.
+    """
+    pattern = re.compile(
+        r'<a\s+[^>]*?href="(https?://(?:t\.me|telegram\.me)/[^"]+)"[^>]*>',
+        re.IGNORECASE,
+    )
+
+    def _add(m: re.Match) -> str:
+        tag = m.group(0)
+        cls = re.search(r'class="([^"]*)"', tag)
+        if cls:
+            if "cta-telegram" in cls.group(1):
+                return tag
+            new_cls = (cls.group(1) + " cta-telegram").strip()
+            return tag.replace(cls.group(0), f'class="{new_cls}"', 1)
+        return tag.replace("<a ", '<a class="cta-telegram" ', 1)
+
+    return pattern.sub(_add, html)
+
+
 def render_post_page(post: Post, local_exists: dict[str, bool]) -> str:
     canonical = f"{SITE_ORIGIN}/posts/post-{post.pid}.html"
     seo = seo_head(post)
@@ -427,9 +461,9 @@ def render_post_page(post: Post, local_exists: dict[str, bool]) -> str:
         f"<article class=\"post-content\">"
         f"<div class=\"meta\">{post.date_human}</div>"
         f"{photos_html}"
-        f"<div class=\"body\">{post.html}</div>"
+        f"<div class=\"body\">{_tag_telegram_links(post.html)}</div>"
         f"<p style=\"margin-top: 30px;\">"
-        f"<a href=\"{post.url}\" target=\"_blank\" class=\"bot-cta\">Открыть в Telegram &rarr;</a>"
+        f"<a href=\"{post.url}\" target=\"_blank\" class=\"bot-cta cta-telegram\">Открыть в Telegram &rarr;</a>"
         f"</p>"
         f"</article>"
     )
@@ -489,7 +523,7 @@ def _render_card(p: Post, local_exists: dict[str, bool], full_card: bool) -> str
         f"<div class=\"announce\">{announce}</div>"
         f"<div class=\"actions\">"
         f"<a class=\"btn-primary\" href=\"/posts/post-{p.pid}.html\">Читать статью</a>"
-        f"<a class=\"btn-secondary\" href=\"{p.url}\" target=\"_blank\">Открыть в Telegram</a>"
+        f"<a class=\"btn-secondary cta-telegram\" href=\"{p.url}\" target=\"_blank\">Открыть в Telegram</a>"
         f"</div>"
         f"</div>"
     )
