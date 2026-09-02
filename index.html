@@ -380,50 +380,6 @@
         }
         .time-slot strong { display: block; color: var(--primary); font-size: 1.05rem; }
 
-        /* ─── SLOT CARDS ──────────────────────────────────────────────────── */
-        .slot-card {
-            background: var(--card-solid);
-            padding: 18px 14px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition);
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .slot-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-        .slot-date { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
-        .slot-time { color: var(--primary); font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
-        .occupancy-tag {
-            display: inline-flex; align-items: center;
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-size: 0.78rem; font-weight: 600;
-            align-self: flex-start;
-            line-height: 1.3;
-        }
-        .tag-individual { background: rgba(255, 75, 43, 0.12); color: var(--accent); }
-        .tag-group { background: rgba(42, 82, 190, 0.12); color: var(--primary); }
-        .book-btn {
-            margin-top: 4px;
-            background: var(--accent); color: #fff;
-            border: 1px solid var(--accent);
-            padding: 10px 16px;
-            border-radius: var(--radius-pill);
-            font-weight: 600; font-size: 0.95rem;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-        }
-        .book-btn:hover {
-            background: #e63e1f; border-color: #e63e1f;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px -6px rgba(255, 75, 43, 0.45);
-        }
-
         .filter-container {
             margin: 0 auto 28px;
             display: grid;
@@ -1035,15 +991,14 @@ function renderSlots(slots) {
             div.className = `slot-card ${isGroup ? 'group-type' : ''}`;
             
             const tagClass = isGroup ? 'tag-group' : 'tag-individual';
-            const tagText = isGroup
-                ? `👥 ${slot.remaining}/${slot.limit} мест · 10 € · 60 мин`
-                : `👤 35 € · 60 мин`;
+            const tagText = isGroup ? `👥 Мест: ${slot.remaining} из ${slot.limit}` : `👤 Индивидуально`;
 
             div.innerHTML = `
                 <div class="slot-date">${slot.date}</div>
                 <div class="slot-time">${slot.time}</div>
+                <div class="slot-type">${slot.type}</div>
                 <div class="occupancy-tag ${tagClass}">${tagText}</div>
-                <button class="book-btn" onclick='openModal(${JSON.stringify(slot)})'>Записаться</button>
+                <button class="book-btn" onclick='openModal(${JSON.stringify(slot)})' style="width: 100%;">Записаться</button>
             `;
             grid.appendChild(div);
         });
