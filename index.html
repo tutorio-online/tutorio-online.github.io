@@ -1003,7 +1003,6 @@ function renderSlots(slots) {
             div.innerHTML = `
                 <div class="slot-date">${slot.date}</div>
                 <div class="slot-time">${slot.time}</div>
-                <div class="slot-type">${slot.type}</div>
                 <div class="occupancy-tag ${tagClass}">${tagText}</div>
                 <button class="book-btn" onclick='openModal(${JSON.stringify(slot)})' style="width: 100%;">Записаться</button>
             `;
