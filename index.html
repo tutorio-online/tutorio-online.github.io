@@ -358,6 +358,19 @@
                           transform: translateY(-2px);
                           box-shadow: 0 12px 24px -8px rgba(42, 82, 190, 0.35); }
 
+        /* tg-bot — нейтральная ссылка на Telegram-бота (НЕ целевая кнопка) */
+        .tg-bot { display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+                  color: var(--primary); background: transparent;
+                  border: 1px solid var(--primary);
+                  padding: 16px 32px; border-radius: var(--radius-pill);
+                  font-weight: 600; font-size: 1.05rem; text-decoration: none;
+                  transition: var(--transition); cursor: pointer; }
+        .tg-bot:hover { background: var(--primary); color: #fff;
+                        transform: translateY(-2px);
+                        box-shadow: 0 12px 24px -8px rgba(42, 82, 190, 0.35); }
+        /* tg-link — нейтральная ссылка на Telegram-канал (НЕ целевая кнопка) */
+        .tg-link { color: inherit; text-decoration: none; }
+
         /* ─── BOOKING SECTION (Glassmorphism) ──────────────────────────────── */
         .booking-section {
             margin: 80px 0; text-align: center;
@@ -800,8 +813,8 @@
     <a class="nav-item" href="/blog.html">Блог</a>
 
     <h3>Связаться</h3>
-    <a class="nav-item cta-telegram" href="https://t.me/tutorio_channel" target="_blank" rel="noopener">Telegram канал</a>
-    <a class="nav-item cta-telegram" href="https://t.me/tutoriossa_bot" target="_blank" rel="noopener">Telegram бот</a>
+    <a class="nav-item tg-link" href="https://t.me/tutorio_channel" target="_blank" rel="noopener">Telegram канал</a>
+    <a class="nav-item tg-link" href="https://t.me/tutoriossa_bot" target="_blank" rel="noopener">Telegram бот</a>
 
     <a href="#booking" class="main-cta cta-lead side-nav-btn">Записаться на занятие</a>
 </nav>
@@ -911,7 +924,7 @@
         <h2>Бот как бонус!</h2>
         <p>Делюсь бесплатно, можете начать заниматься уже сейчас.</p>
         <p>Чат-бот Tutoriossa для практики</p>
-        <a href="https://t.me/tutoriossa_bot" target="_blank" class="bot-cta cta-telegram">Пообщаться с ботом</a>
+        <a href="https://t.me/tutoriossa_bot" target="_blank" class="tg-bot">Пообщаться с ботом</a>
     </section>
 </div>
 
@@ -948,7 +961,7 @@
 
 <footer>
     <div class="social-links">
-        <a href="https://t.me/tutorio_channel" target="_blank" class="social-icon cta-telegram"><i data-lucide="send"></i> Telegram</a>
+        <a href="https://t.me/tutorio_channel" target="_blank" class="social-icon tg-link"><i data-lucide="send"></i> Telegram</a>
 
         <a href="https://instagram.com/lizza__vetta_?igsh=cHJibW85czQ4cnVp&utm_source=qr" target="_blank" class="social-icon"><i data-lucide="instagram"></i> Instagram</a>
     </div>
@@ -1076,6 +1089,14 @@ function filterSlots(filter, btn) {
                 time: selectedSlotData.time,
                 type: selectedSlotData.type
             })
+        });
+        // === ТРЕКИНГ РЕАЛЬНОЙ ЗАЯВКИ: событие для GTM/Метрики/Google Ads ===
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'booking_submitted',
+            slot_date: selectedSlotData.date,
+            slot_time: selectedSlotData.time,
+            slot_type: selectedSlotData.type
         });
         alert("Заявка принята! Совсем скоро я свяжусь с вами, чтобы познакомиться лично и обсудить все детали.");
         location.reload();
