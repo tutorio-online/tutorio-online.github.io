@@ -1,2 +1,10 @@
 __pycache__/
 *.pyc
+
+# Drafts (не коммитим, локальные заметки)
+content_strategy.md
+exam_questions.md
+gtm-booking-tracking.json
+pre_exam_design.md
+tally_structure.md
+test.html
