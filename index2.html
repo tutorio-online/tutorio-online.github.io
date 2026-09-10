@@ -440,6 +440,7 @@
         .filter-btn.active { background: var(--primary); color: #fff; }
 
         /* ─── BOT BLOCK (мягкий glass) ─────────────────────────────────────── */
+        .bot-how ul { display: inline-block; text-align: left; margin: 0 auto 20px; }
         .bot-section {
             background: linear-gradient(135deg, #f0f4ff 0%, #e8efff 100%);
             padding: 40px 32px;
@@ -452,7 +453,6 @@
         }
         .bot-section h2 { color: #1f2937; margin: 0 0 6px; font-size: var(--fs-h2); font-weight: 600; letter-spacing: -0.02em; }
         .bot-section p { color: var(--text-muted); font-size: 1.05rem; margin: 0 0 20px; line-height: 1.45; }
-        #bot-block ul { display: inline-block; text-align: left; margin: 0 auto 20px; }
 
         /* ─── MODAL ────────────────────────────────────────────────────────── */
         .modal {
@@ -925,13 +925,14 @@
     <section id="bot-block" class="bot-section">
     <h2>Попробуйте говорить до урока</h2>
     <p>Tutoriossa — бесплатная практика в Telegram. 5–10 минут текстом, без оценок и расписания. Так проще потом заговорить с Лизаветой.</p>
-    <p>Как устроено:</p>
-    <ul>
-        <li>тема: работа, жизнь в Европе, путешествия или свободный разговор;</li>
-        <li>уровень выбираете сами;</li>
-        <li>бот держит диалог и не ставит двойку за ошибку;</li>
-        <li>то, что не получается, разбираете на занятии.</li>
-    </ul>
+    <div class="bot-how">
+        <ul>
+            <li>тема: работа, жизнь в Европе, путешествия или свободный разговор;</li>
+            <li>уровень выбираете сами;</li>
+            <li>бот держит диалог и не ставит двойку за ошибку;</li>
+            <li>то, что не получается, разбираете на занятии.</li>
+        </ul>
+    </div>
     <p>Tutorio — занятия с преподавателем. Tutoriossa — тренажёр между уроками, не замена живому разговору.</p>
     <div class="cta-group">
         <a href="https://t.me/tutoriossa_bot?start=site_bot" target="_blank" rel="noopener" class="tg-bot">Попробовать Tutoriossa</a>
