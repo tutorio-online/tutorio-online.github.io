@@ -1107,6 +1107,11 @@ function filterSlots(filter, btn) {
             slot_time: selectedSlotData.time,
             slot_type: selectedSlotData.type
         });
+        // GA4 key event / Google Ads conversion
+        window.dataLayer.push({
+            event: 'generate_lead',
+            form: 'booking'
+        });
         alert("Заявка принята! Совсем скоро я свяжусь с вами, чтобы познакомиться лично и обсудить все детали.");
         location.reload();
     } catch (e) {
