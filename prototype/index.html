@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тарифы и оплата | Tutorio — прототип</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="sticky-nav" aria-label="Навигация">
+    <a class="brand" href="index.html">Tutorio<span>.</span></a>
+    <div class="nav-links">
+        <a href="index.html" class="active">Тарифы</a>
+        <a href="payment.html">Оплата</a>
+        <a href="reschedule.html">Переносы</a>
+        <a href="faq.html">FAQ</a>
+    </div>
+    <span class="proto-badge">ПРОТОТИП</span>
+</nav>
+
+<header class="page-hero">
+    <h1>Тарифы и <span>оплата</span></h1>
+    <p class="lead">Прозрачные цены в евро, без скрытых условий. Выберите формат — я подтвержу расписание и пришлю ссылку на оплату.</p>
+</header>
+
+<main class="container">
+
+    <section class="section" id="pricing">
+        <div class="pricing-grid">
+
+            <div class="price-card" id="intro">
+                <div class="format">Вводное занятие</div>
+                <h3>Диагностика с планом</h3>
+                <div class="price">0 €</div>
+                <div class="per">бесплатно, 30 минут</div>
+                <ul>
+                    <li>Определим ваш уровень</li>
+                    <li>Обсудим цели и интересы</li>
+                    <li>Составим персональный план обучения</li>
+                    <li>Подберём формат: тет-а-тет или группа</li>
+                </ul>
+                <a href="payment.html?plan=intro" class="btn btn-outline btn-md">Записаться</a>
+            </div>
+
+            <div class="price-card featured" id="individual">
+                <div class="format">Индивидуально</div>
+                <h3>Занятия тет-а-тет</h3>
+                <div class="price">35 €</div>
+                <div class="per">за занятие · 60 минут</div>
+                <ul>
+                    <li>Программа под ваши цели</li>
+                    <li>80% времени — разговорная практика</li>
+                    <li>Гибкое расписание</li>
+                </ul>
+                <div class="pack-note">Пакет 5 — 160 € (32 €/занятие)</div>
+                <div class="pack-note">Пакет 10 — 300 € (30 €/занятие)</div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <a href="payment.html?plan=ind1" class="btn btn-accent btn-md">1 занятие — 35 €</a>
+                    <a href="payment.html?plan=ind5" class="btn btn-outline btn-md">Пакет 5 — 160 €</a>
+                    <a href="payment.html?plan=ind10" class="btn btn-primary btn-md">Пакет 10 — 300 €</a>
+                </div>
+            </div>
+
+            <div class="price-card" id="group">
+                <div class="format">Мини-группа</div>
+                <h3>Групповая практика</h3>
+                <div class="price">10 €</div>
+                <div class="per">за занятие · 60 минут · 3–5 человек</div>
+                <ul>
+                    <li>Живое общение с первого занятия</li>
+                    <li>Динамичная практика в парах</li>
+                    <li>Группы по уровню и интересам</li>
+                </ul>
+                <div class="pack-note">Абонемент на месяц (8 занятий) — 70 €</div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <a href="payment.html?plan=grp1" class="btn btn-accent btn-md">1 занятие — 10 €</a>
+                    <a href="payment.html?plan=grp8" class="btn btn-primary btn-md">Месяц — 70 €</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section glass" style="text-align:center;">
+        <h2>Как проходит оплата</h2>
+        <p style="color:var(--text-muted); max-width:560px; margin:0 auto 22px;">
+            После выбора тарифа вы попадаете на защищённую страницу оплаты (Stripe — банковская карта). Оплата в евро,
+            чек приходит на почту. Это прототип: кнопки ниже показывают демо-сценарий.
+        </p>
+        <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+            <a href="payment.html?plan=ind1" class="btn btn-accent btn-lg">Демо-оплата</a>
+            <a href="reschedule.html" class="btn btn-ghost btn-lg">Правила переносов</a>
+            <a href="faq.html" class="btn btn-ghost btn-lg">Вопросы и ответы</a>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>Tutorio · разговорный английский для русскоязычных в Европе · Лизавета, Португалия</p>
+    <p style="font-size:0.8rem; color:var(--text-soft);">Локальный прототип страницы оплат — платежи не подключены.</p>
+</footer>
+
+</body>
+</html>

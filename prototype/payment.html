@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Демо-оплата | Tutorio — прототип</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="sticky-nav" aria-label="Навигация">
+    <a class="brand" href="index.html">Tutorio<span>.</span></a>
+    <div class="nav-links">
+        <a href="index.html">Тарифы</a>
+        <a href="payment.html" class="active">Оплата</a>
+        <a href="reschedule.html">Переносы</a>
+        <a href="faq.html">FAQ</a>
+    </div>
+    <span class="proto-badge">ПРОТОТИП</span>
+</nav>
+
+<header class="page-hero">
+    <h1>Оплата <span>занятий</span></h1>
+    <p class="lead">Демо-страница: здесь будет Stripe. Реальные платежи не подключены — кнопка показывает заглушку.</p>
+</header>
+
+<main class="container">
+
+    <section class="section">
+        <div class="pay-layout">
+
+            <div class="glass order-summary">
+                <h3>Ваш заказ</h3>
+                <div class="order-line"><span id="orderName">Индивидуальное занятие</span><span id="orderPrice">35 €</span></div>
+                <div class="order-line"><span>Формат</span><span id="orderFormat">онлайн, Zoom / Google Meet</span></div>
+                <div class="order-line total"><span>Итого</span><span id="orderTotal">35 €</span></div>
+                <p style="color:var(--text-muted); font-size:0.88rem; margin-top:16px;">
+                    После оплаты вы получите подтверждение на email и ссылку на календарь для выбора времени.
+                </p>
+            </div>
+
+            <div class="glass">
+                <form id="payForm">
+                    <h3>Данные для оплаты</h3>
+                    <div class="form-field">
+                        <label for="name">Имя и фамилия</label>
+                        <input type="text" id="name" placeholder="Анна Иванова" autocomplete="name">
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="anna@example.com" autocomplete="email">
+                    </div>
+                    <div class="form-field">
+                        <label for="card">Номер карты</label>
+                        <input type="text" id="card" placeholder="4242 4242 4242 4242" inputmode="numeric">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="exp">Срок действия</label>
+                            <input type="text" id="exp" placeholder="ММ / ГГ">
+                        </div>
+                        <div class="form-field">
+                            <label for="cvc">CVC</label>
+                            <input type="text" id="cvc" placeholder="123" inputmode="numeric">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-accent btn-lg" style="width:100%;" id="payBtn">
+                        Оплатить <span id="btnTotal">35 €</span>
+                    </button>
+                    <p class="demo-note">⚠️ Это прототип: данные никуда не отправляются, платёж не проводится. На реальной странице — Stripe Checkout.</p>
+                </form>
+
+                <div class="success-box" id="successBox">
+                    <div class="check">✓</div>
+                    <h3>Демо-оплата прошла!</h3>
+                    <p style="color:var(--text-muted);">В рабочей версии здесь будет подтверждение от Stripe, чек на email и ссылка для выбора времени занятия.</p>
+                    <a href="index.html" class="btn btn-primary btn-md" style="margin-top:12px;">Вернуться к тарифам</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>Tutorio · разговорный английский для русскоязычных в Европе · Лизавета, Португалия</p>
+    <p style="font-size:0.8rem; color:var(--text-soft);">Локальный прототип страницы оплат — платежи не подключены.</p>
+</footer>
+
+<script>
+const plans = {
+    intro: { name: 'Вводное занятие — диагностика с планом', price: 0,  total: '0 €',  btn: 'Записаться бесплатно' },
+    ind1:  { name: 'Индивидуальное занятие (1)',             price: 35, total: '35 €', btn: 'Оплатить' },
+    ind5:  { name: 'Пакет 5 индивидуальных занятий',          price: 160, total: '160 € (32 €/занятие)', btn: 'Оплатить' },
+    ind10: { name: 'Пакет 10 индивидуальных занятий',         price: 300, total: '300 € (30 €/занятие)', btn: 'Оплатить' },
+    grp1:  { name: 'Занятие в мини-группе (1)',               price: 10, total: '10 €', btn: 'Оплатить' },
+    grp8:  { name: 'Абонемент на месяц — группа, 8 занятий',  price: 70, total: '70 € (8,75 €/занятие)', btn: 'Оплатить' }
+};
+const params = new URLSearchParams(location.search);
+const plan = plans[params.get('plan')] || plans.ind1;
+document.getElementById('orderName').textContent = plan.name;
+document.getElementById('orderPrice').textContent = plan.total;
+document.getElementById('orderTotal').textContent = plan.total;
+document.getElementById('btnTotal').textContent = plan.total;
+document.getElementById('payBtn').firstChild.textContent = plan.btn + ' ';
+document.getElementById('payForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('successBox').style.display = 'block';
+});
+</script>
+
+</body>
+</html>
